@@ -1,0 +1,11 @@
+1.安装tomcat
+
+2.Run/Edit Configuration
+
+Deployment
+1.新增加一个war, application context设为/
+2.把js文件夹,css文件夹,解压后的image文件夹加入
+
+
+3.Windows 系统请在UserController.java
+中把路径从"/"风格改为"\"风格
