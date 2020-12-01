@@ -101,24 +101,6 @@ PRIMARY KEY (`id`)
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for orderform
--- ----------------------------
-DROP TABLE IF EXISTS `orderform`;
-CREATE TABLE `orderform` (
-`id` int(11) NOT NULL AUTO_INCREMENT,
-`modified` datetime DEFAULT NULL,
-`display` int(11) NOT NULL DEFAULT '1',
-`uid` int(11) NOT NULL,
-`address` varchar(255) NOT NULL,
-`context` varchar(255) DEFAULT NULL,
-PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of orderform
--- ----------------------------
-
--- ----------------------------
 -- Table structure for shopcar
 -- ----------------------------
 DROP TABLE IF EXISTS `shopcar`;
