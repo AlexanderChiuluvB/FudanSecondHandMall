@@ -353,20 +353,3 @@ CREATE TABLE `UserWant` (
 `uid` int(11) NOT NULL,
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for wantcontext
--- ----------------------------
-DROP TABLE IF EXISTS `wantcontext`;
-CREATE TABLE `wantcontext` (
-`id` int(11) NOT NULL AUTO_INCREMENT,
-`modified` datetime DEFAULT NULL,
-`uwid` int(11) NOT NULL,
-`context` varchar(255) NOT NULL,
-`display` int(11) NOT NULL DEFAULT '1',
-PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of wantcontext
--- ----------------------------
