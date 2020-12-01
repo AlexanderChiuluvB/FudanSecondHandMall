@@ -221,7 +221,7 @@ public class UserWantGoodsController {
      * @return
      */
     @RequestMapping(value = "/shopping_cart.do")
-    public String selectShopCar(HttpServletRequest request, Model model) {
+    public String selectGoodsCar(HttpServletRequest request, Model model) {
         UserInformation userInformation = (UserInformation) request.getSession().getAttribute("userInformation");
         if (StringUtils.getInstance().isNullOrEmpty(userInformation)) {
             userInformation = new UserInformation();
