@@ -101,22 +101,6 @@ PRIMARY KEY (`id`)
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shopcar
--- ----------------------------
-DROP TABLE IF EXISTS `shopcar`;
-CREATE TABLE `shopcar` (
-`id` int(11) NOT NULL AUTO_INCREMENT,
-`modified` datetime DEFAULT NULL,
-`display` int(11) NOT NULL DEFAULT '1',
-`uid` int(11) NOT NULL,
-PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of shopcar
--- ----------------------------
-
--- ----------------------------
 -- Table structure for ShopMessage
 -- ----------------------------
 DROP TABLE IF EXISTS `ShopMessage`;
@@ -129,10 +113,6 @@ CREATE TABLE `ShopMessage` (
 `uid` int(11) NOT NULL DEFAULT '1',
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of ShopMessage
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for AllSales
@@ -157,10 +137,6 @@ CREATE TABLE `AllSales` (
 PRIMARY KEY (`id`),
 KEY `index_uid` (`uid`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=1098 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of AllSales
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for ThirdClass
