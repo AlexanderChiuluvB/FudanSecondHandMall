@@ -33,9 +33,9 @@ public class PublishGoodsController {
     @Resource
     private SpecificeService specificeService;
     @Resource
-    private ClassificationService classificationService;
+    private SecondClassService secondClassService;
     @Resource
-    private AllKindsService allKindsService;
+    private FirstClassService firstClassService;
     @Resource
     private UserWantService userWantService;
 
@@ -227,26 +227,26 @@ public class PublishGoodsController {
     }
 
     //获得第二层分类
-    private Classification selectClassificationByCid(int cid) {
-        return classificationService.selectByPrimaryKey(cid);
+    private SecondClass selectSecondClassByCid(int cid) {
+        return secondClassService.selectByPrimaryKey(cid);
     }
 
-    //获得第一层分类
-    private AllKinds selectAllKindsByAid(int aid) {
-        return allKindsService.selectByPrimaryKey(aid);
+    //
+    private FirstClass selectFirstClassByAid(int aid) {
+        return firstClassService.selectByPrimaryKey(aid);
     }
 
     private String getSort(int sort) {
         StringBuilder sb = new StringBuilder();
         Specific specific = selectSpecificBySort(sort);
         int cid = specific.getCid();
-        Classification classification = selectClassificationByCid(cid);
-        int aid = classification.getAid();
-        AllKinds allKinds = selectAllKindsByAid(aid);
-        String allName = allKinds.getName();
+        SecondClass secondClass = selectSecondClassByCid(cid);
+        int aid = secondClass.getAid();
+        FirstClass firstClass = selectFirstClassByAid(aid);
+        String allName = firstClass.getName();
         sb.append(allName);
         sb.append("-");
-        sb.append(classification.getName());
+        sb.append(secondClass.getName());
         sb.append("-");
         sb.append(specific.getName());
         return sb.toString();

@@ -26,9 +26,9 @@ public class HomePageController {
     @Resource
     private SpecificeService specificeService;
     @Resource
-    private ClassificationService classificationService;
+    private SecondClassService secondClassService;
     @Resource
-    private AllKindsService allKindsService;
+    private FirstClassService firstClassService;
     @Resource
     private ShopContextService shopContextService;
 
@@ -126,12 +126,12 @@ public class HomePageController {
         StringBuilder stringBuffer = new StringBuilder();
         Specific specific = selectSpecificBySort(sort);
         int cid = specific.getCid();
-        Classification classification = selectClassificationByCid(cid);
-        int aid = classification.getAid();
-        AllKinds allKinds = selectAllKindsByAid(aid);
-        stringBuffer.append(allKinds.getName());
+        SecondClass secondClass = selectSecondClassByCid(cid);
+        int aid = secondClass.getAid();
+        FirstClass firstClass = selectFirstClassByAid(aid);
+        stringBuffer.append(firstClass.getName());
         stringBuffer.append("-");
-        stringBuffer.append(classification.getName());
+        stringBuffer.append(secondClass.getName());
         stringBuffer.append("-");
         stringBuffer.append(specific.getName());
 //        System.out.println(sort);
@@ -139,17 +139,17 @@ public class HomePageController {
     }
 
     //获得分类中的第一层
-    @RequestMapping(value = "/getAllKinds.do")
+    @RequestMapping(value = "/getFirstClass.do")
     @ResponseBody
-    public List<AllKinds> getAllKind() {
-        return getAllKinds();
+    public List<FirstClass> getAllKind() {
+        return getFirstClass();
     }
 
     //获得分类中的第二层，通过第一层的id
-    @RequestMapping(value = "/getClassification.do", method = RequestMethod.POST)
+    @RequestMapping(value = "/getSecondClass.do", method = RequestMethod.POST)
     @ResponseBody
-    public List<Classification> getClassificationByAid(@RequestParam int id) {
-        return selectAllClassification(id);
+    public List<SecondClass> getSecondClassByAid(@RequestParam int id) {
+        return selectAllSecondClass(id);
     }
 
     //通过第二层的id获取对应的第三层
@@ -204,23 +204,23 @@ public class HomePageController {
     }
 
     //获得第二层分类
-    private Classification selectClassificationByCid(int cid) {
-        return classificationService.selectByPrimaryKey(cid);
+    private SecondClass selectSecondClassByCid(int cid) {
+        return secondClassService.selectByPrimaryKey(cid);
     }
 
     //获得第一层分类
-    private AllKinds selectAllKindsByAid(int aid) {
-        return allKindsService.selectByPrimaryKey(aid);
+    private FirstClass selectFirstClassByAid(int aid) {
+        return firstClassService.selectByPrimaryKey(aid);
     }
 
     //获得第一层所有
-    private List<AllKinds> getAllKinds() {
-        return allKindsService.selectAll();
+    private List<FirstClass> getFirstClass() {
+        return firstClassService.selectAll();
     }
 
     //根据第一层的id获取该层下的第二层
-    private List<Classification> selectAllClassification(int aid) {
-        return classificationService.selectByAid(aid);
+    private List<SecondClass> selectAllSecondClass(int aid) {
+        return secondClassService.selectByAid(aid);
     }
 
     //根据第二层的id获取其对应的第三层所有id

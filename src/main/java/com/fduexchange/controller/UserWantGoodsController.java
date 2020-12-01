@@ -7,7 +7,6 @@ import com.fduexchange.pojo.*;
 import com.fduexchange.utils.response.BaseResponse;
 import com.fduexchange.service.*;
 import com.fduexchange.utils.token.TokenProccessor;
-import com.fduexchange.utils.SaveSession;
 import com.fduexchange.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -36,9 +35,9 @@ public class UserWantGoodsController {
     @Resource
     private SpecificeService specificeService;
     @Resource
-    private ClassificationService classificationService;
+    private SecondClassService secondClassService;
     @Resource
-    private AllKindsService allKindsService;
+    private FirstClassService firstClassService;
     @Resource
     private ShopContextService shopContextService;
     @Resource
@@ -683,12 +682,12 @@ public class UserWantGoodsController {
         StringBuilder sb = new StringBuilder();
         Specific specific = selectSpecificBySort(sort);
         int cid = specific.getCid();
-        Classification classification = selectClassificationByCid(cid);
-        int aid = classification.getAid();
-        AllKinds allKinds = selectAllKindsByAid(aid);
-        sb.append(allKinds.getName());
+        SecondClass secondClass = selectSecondClassByCid(cid);
+        int aid = secondClass.getAid();
+        FirstClass firstClass = selectFirstClassByAid(aid);
+        sb.append(firstClass.getName());
         sb.append("-");
-        sb.append(classification.getName());
+        sb.append(secondClass.getName());
         sb.append("-");
         sb.append(specific.getName());
         return sb.toString();
@@ -741,13 +740,13 @@ public class UserWantGoodsController {
     }
 
     //获得第二层分类
-    private Classification selectClassificationByCid(int cid) {
-        return classificationService.selectByPrimaryKey(cid);
+    private SecondClass selectSecondClassByCid(int cid) {
+        return secondClassService.selectByPrimaryKey(cid);
     }
 
     //获得第一层分类
-    private AllKinds selectAllKindsByAid(int aid) {
-        return allKindsService.selectByPrimaryKey(aid);
+    private FirstClass selectFirstClassByAid(int aid) {
+        return firstClassService.selectByPrimaryKey(aid);
     }
 
     public void save(ShopInformation shopInformation, UserRelease userRelease) {

@@ -3,12 +3,14 @@ package com.fduexchange.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
-public class AllKinds implements Serializable {
+public class SecondClass implements Serializable {
     private Integer id;
 
     private String name;
 
     private Date modified;
+
+    private Integer aid;
 
     public Integer getId() {
         return id;
@@ -27,10 +29,18 @@ public class AllKinds implements Serializable {
     }
 
     public Date getModified() {
-        return (Date) modified.clone();
+        return modified == null ? null : (Date) modified.clone();
     }
 
     public void setModified(Date modified) {
-        this.modified = (Date) modified.clone();
+        this.modified = modified == null ? null : (Date) modified.clone();
+    }
+
+    public Integer getAid() {
+        return aid;
+    }
+
+    public void setAid(Integer aid) {
+        this.aid = aid;
     }
 }

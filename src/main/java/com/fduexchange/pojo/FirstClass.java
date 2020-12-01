@@ -3,14 +3,12 @@ package com.fduexchange.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
-public class AdminOperation implements Serializable{
+public class FirstClass implements Serializable {
     private Integer id;
 
-    private Integer aid;
+    private String name;
 
     private Date modified;
-
-    private String operation;
 
     public Integer getId() {
         return id;
@@ -20,12 +18,12 @@ public class AdminOperation implements Serializable{
         this.id = id;
     }
 
-    public Integer getAid() {
-        return aid;
+    public String getName() {
+        return name;
     }
 
-    public void setAid(Integer aid) {
-        this.aid = aid;
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
     public Date getModified() {
@@ -34,13 +32,5 @@ public class AdminOperation implements Serializable{
 
     public void setModified(Date modified) {
         this.modified = (Date) modified.clone();
-    }
-
-    public String getOperation() {
-        return operation;
-    }
-
-    public void setOperation(String operation) {
-        this.operation = operation == null ? null : operation.trim();
     }
 }
