@@ -44,8 +44,6 @@ public class UserWantGoodsController {
     private UserReleaseService userReleaseService;
     @Resource
     private UserWantService userWantService;
-    @Resource
-    private ShopCarService shopCarService;
 
 
     //进入求购页面
@@ -214,22 +212,6 @@ public class UserWantGoodsController {
             e.printStackTrace();
         }
         return "redirect:my_require_product.do";
-    }
-
-    /***
-     * 得到购物车商品数目
-     * @param request
-     * @return
-     */
-    @RequestMapping(value = "/getShopCarCounts.do")
-    @ResponseBody
-    public BaseResponse getShopCarCounts(HttpServletRequest request) {
-        if (StringUtils.getInstance().isNullOrEmpty(request.getSession().getAttribute("userInformation"))) {
-            return BaseResponse.fail();
-        }
-        int uid = (int) request.getSession().getAttribute("uid");
-        int counts = getShopCarCounts(uid);
-        return BaseResponse.success();
     }
 
     /***
@@ -672,16 +654,6 @@ public class UserWantGoodsController {
             List<UserWant> list = new ArrayList<>();
             list.add(new UserWant());
             return list;
-        }
-    }
-
-    //我的购物车总数
-    private int getShopCarCounts(int uid) {
-        try {
-            return shopCarService.getCounts(uid);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return -1;
         }
     }
 
