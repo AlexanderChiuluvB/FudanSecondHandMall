@@ -41,8 +41,6 @@ public class UserWantGoodsController {
     @Resource
     private ShopMessageService shopMessageService;
     @Resource
-    private UserCollectionService userCollectionService;
-    @Resource
     private UserReleaseService userReleaseService;
     @Resource
     private UserWantService userWantService;
@@ -216,53 +214,6 @@ public class UserWantGoodsController {
             e.printStackTrace();
         }
         return "redirect:my_require_product.do";
-    }
-
-    /***
-     * 增加收藏
-     * @param request
-     * @param sid
-     * @return
-     */
-    @RequestMapping(value = "/addUserCollection.do")
-    @ResponseBody
-    public BaseResponse addUserCollection(HttpServletRequest request, @RequestParam int sid) {
-        if (StringUtils.getInstance().isNullOrEmpty(request.getSession().getAttribute("userInformation"))) {
-            return BaseResponse.fail();
-        }
-        UserCollection userCollection = new UserCollection();
-        userCollection.setModified(new Date());
-        userCollection.setSid(sid);
-        userCollection.setUid((Integer) request.getSession().getAttribute("uid"));
-        int result = userCollectionService.insertSelective(userCollection);
-        if (result != 1) {
-            return BaseResponse.fail();
-        }
-        return BaseResponse.success();
-    }
-
-    /***
-     * 删除用户收藏
-     * @param request
-     * @param ucid
-     * @return
-     */
-    @RequestMapping(value = "/deleteUserCollection.do")
-    @ResponseBody
-    public BaseResponse deleteUserCollection(HttpServletRequest request, @RequestParam int ucid) {
-        if (StringUtils.getInstance().isNullOrEmpty(request.getSession().getAttribute("userInformation"))) {
-            return BaseResponse.fail();
-        }
-        UserCollection userCollection = new UserCollection();
-        userCollection.setId(ucid);
-        userCollection.setModified(new Date());
-        userCollection.setDisplay(0);
-        int result;
-        result = userCollectionService.updateByPrimaryKeySelective(userCollection);
-        if (result != 1) {
-            return BaseResponse.fail();
-        }
-        return BaseResponse.success();
     }
 
     /***

@@ -291,24 +291,6 @@ INSERT INTO `ThirdClass` VALUES ('111', '其他', null, '26');
 INSERT INTO `ThirdClass` VALUES ('112', '其他', null, '27');
 INSERT INTO `ThirdClass` VALUES ('113', '其他', null, '28');
 
-
--- ----------------------------
--- Table structure for usercollection
--- ----------------------------
-DROP TABLE IF EXISTS `usercollection`;
-CREATE TABLE `usercollection` (
-`id` int(11) NOT NULL AUTO_INCREMENT,
-`modified` datetime DEFAULT NULL,
-`uid` int(11) NOT NULL,
-`sid` int(11) NOT NULL,
-`display` int(11) NOT NULL DEFAULT '1',
-PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of usercollection
--- ----------------------------
-
 -- ----------------------------
 -- Table structure for userinformation
 -- ----------------------------
