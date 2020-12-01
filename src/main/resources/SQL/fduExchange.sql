@@ -292,10 +292,10 @@ INSERT INTO `ThirdClass` VALUES ('112', '其他', null, '27');
 INSERT INTO `ThirdClass` VALUES ('113', '其他', null, '28');
 
 -- ----------------------------
--- Table structure for userinformation
+-- Table structure for UserInformation
 -- ----------------------------
-DROP TABLE IF EXISTS `userinformation`;
-CREATE TABLE `userinformation` (
+DROP TABLE IF EXISTS `UserInformation`;
+CREATE TABLE `UserInformation` (
 `id` int(11) NOT NULL AUTO_INCREMENT,
 `modified` datetime DEFAULT NULL,
 `username` varchar(50) NOT NULL,
@@ -313,14 +313,10 @@ KEY `selectByPhone` (`phone`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of userinformation
+-- Table structure for UserPassword
 -- ----------------------------
-
--- ----------------------------
--- Table structure for userpassword
--- ----------------------------
-DROP TABLE IF EXISTS `userpassword`;
-CREATE TABLE `userpassword` (
+DROP TABLE IF EXISTS `UserPassword`;
+CREATE TABLE `UserPassword` (
 `id` int(11) NOT NULL AUTO_INCREMENT,
 `modified` datetime DEFAULT NULL,
 `password` varchar(24) NOT NULL,
@@ -329,14 +325,10 @@ PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of userpassword
+-- Table structure for UserRelease
 -- ----------------------------
-
--- ----------------------------
--- Table structure for userrelease
--- ----------------------------
-DROP TABLE IF EXISTS `userrelease`;
-CREATE TABLE `userrelease` (
+DROP TABLE IF EXISTS `UserRelease`;
+CREATE TABLE `UserRelease` (
 `id` int(11) NOT NULL AUTO_INCREMENT,
 `modified` datetime DEFAULT NULL,
 `display` int(11) NOT NULL DEFAULT '1',
@@ -346,31 +338,10 @@ PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1006 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of userrelease
+-- Table structure for UserWant
 -- ----------------------------
-
--- ----------------------------
--- Table structure for userstate
--- ----------------------------
-DROP TABLE IF EXISTS `userstate`;
-CREATE TABLE `userstate` (
-`id` int(11) NOT NULL AUTO_INCREMENT,
-`credit` int(11) NOT NULL DEFAULT '80',
-`balance` decimal(10,2) NOT NULL DEFAULT '0.00',
-`modified` datetime DEFAULT NULL,
-`uid` int(11) NOT NULL,
-PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of userstate
--- ----------------------------
-
--- ----------------------------
--- Table structure for userwant
--- ----------------------------
-DROP TABLE IF EXISTS `userwant`;
-CREATE TABLE `userwant` (
+DROP TABLE IF EXISTS `UserWant`;
+CREATE TABLE `UserWant` (
 `id` int(11) NOT NULL AUTO_INCREMENT,
 `modified` datetime DEFAULT NULL,
 `display` int(11) NOT NULL DEFAULT '1',
@@ -382,10 +353,6 @@ CREATE TABLE `userwant` (
 `uid` int(11) NOT NULL,
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of userwant
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for wantcontext

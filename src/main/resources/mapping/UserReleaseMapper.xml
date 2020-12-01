@@ -10,7 +10,7 @@
   </resultMap>
 
   <sql id="table">
-    userrelease
+    UserRelease
   </sql>
 
   <sql id="all" >
