@@ -3,7 +3,7 @@ package com.fduexchange.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Specific implements Serializable {
+public class ThirdClass implements Serializable {
     private Integer id;
 
     private String name;

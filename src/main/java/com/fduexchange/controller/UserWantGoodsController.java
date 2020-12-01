@@ -33,7 +33,7 @@ public class UserWantGoodsController {
     @Resource
     private GoodsCarService goodsCarService;
     @Resource
-    private SpecificeService specificeService;
+    private ThirdClassService thirdClassService;
     @Resource
     private SecondClassService secondClassService;
     @Resource
@@ -680,8 +680,8 @@ public class UserWantGoodsController {
     //更新商品信息
     private String getSort(int sort) {
         StringBuilder sb = new StringBuilder();
-        Specific specific = selectSpecificBySort(sort);
-        int cid = specific.getCid();
+        ThirdClass thirdClass = selectThirdClassBySort(sort);
+        int cid = thirdClass.getCid();
         SecondClass secondClass = selectSecondClassByCid(cid);
         int aid = secondClass.getAid();
         FirstClass firstClass = selectFirstClassByAid(aid);
@@ -689,7 +689,7 @@ public class UserWantGoodsController {
         sb.append("-");
         sb.append(secondClass.getName());
         sb.append("-");
-        sb.append(specific.getName());
+        sb.append(thirdClass.getName());
         return sb.toString();
     }
 
@@ -735,8 +735,8 @@ public class UserWantGoodsController {
     }
 
     //获取最详细的分类，第三层
-    private Specific selectSpecificBySort(int sort) {
-        return specificeService.selectByPrimaryKey(sort);
+    private ThirdClass selectThirdClassBySort(int sort) {
+        return thirdClassService.selectByPrimaryKey(sort);
     }
 
     //获得第二层分类

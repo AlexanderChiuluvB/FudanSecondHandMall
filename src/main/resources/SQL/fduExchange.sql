@@ -163,26 +163,9 @@ KEY `index_uid` (`uid`) USING BTREE
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shoppicture
+-- Table structure for ThirdClass
 -- ----------------------------
-DROP TABLE IF EXISTS `shoppicture`;
-CREATE TABLE `shoppicture` (
-`id` int(11) NOT NULL AUTO_INCREMENT,
-`modified` datetime DEFAULT NULL,
-`sid` int(11) NOT NULL,
-`picture` varchar(200) NOT NULL,
-`display` int(11) NOT NULL DEFAULT '1',
-PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of shoppicture
--- ----------------------------
-
--- ----------------------------
--- Table structure for specifickinds
--- ----------------------------
-DROP TABLE IF EXISTS `specifickinds`;
+DROP TABLE IF EXISTS `ThirdClass`;
 CREATE TABLE `ThirdClass` (
 `id` int(11) NOT NULL AUTO_INCREMENT,
 `name` varchar(50) NOT NULL,
@@ -192,7 +175,7 @@ PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of specifickinds
+-- Records of ThirdClass
 -- ----------------------------
 INSERT INTO `ThirdClass` VALUES ('1', '整机', null, '1');
 INSERT INTO `ThirdClass` VALUES ('2', '保护膜', null, '1');

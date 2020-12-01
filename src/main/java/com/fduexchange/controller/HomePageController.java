@@ -24,7 +24,7 @@ public class HomePageController {
     @Resource
     private AllSalesService allSalesService;
     @Resource
-    private SpecificeService specificeService;
+    private ThirdClassService thirdClassService;
     @Resource
     private SecondClassService secondClassService;
     @Resource
@@ -124,8 +124,8 @@ public class HomePageController {
     //通过分类的第三层id获取全名
     private String getSortName(int sort) {
         StringBuilder stringBuffer = new StringBuilder();
-        Specific specific = selectSpecificBySort(sort);
-        int cid = specific.getCid();
+        ThirdClass thirdClass = selectThirdClassBySort(sort);
+        int cid = thirdClass.getCid();
         SecondClass secondClass = selectSecondClassByCid(cid);
         int aid = secondClass.getAid();
         FirstClass firstClass = selectFirstClassByAid(aid);
@@ -133,7 +133,7 @@ public class HomePageController {
         stringBuffer.append("-");
         stringBuffer.append(secondClass.getName());
         stringBuffer.append("-");
-        stringBuffer.append(specific.getName());
+        stringBuffer.append(thirdClass.getName());
 //        System.out.println(sort);
         return stringBuffer.toString();
     }
@@ -153,10 +153,10 @@ public class HomePageController {
     }
 
     //通过第二层的id获取对应的第三层
-    @RequestMapping(value = "/getSpecific.do")
+    @RequestMapping(value = "/getThirdClass.do")
     @ResponseBody
-    public List<Specific> getSpecificByCid(@RequestParam int id) {
-        return selectAllSpecific(id);
+    public List<ThirdClass> getThirdClassByCid(@RequestParam int id) {
+        return selectAllThirdClass(id);
     }
 
     //get the shops counts
@@ -199,8 +199,8 @@ public class HomePageController {
     }
 
     //获取最详细的分类，第三层
-    private Specific selectSpecificBySort(int sort) {
-        return specificeService.selectByPrimaryKey(sort);
+    private ThirdClass selectThirdClassBySort(int sort) {
+        return thirdClassService.selectByPrimaryKey(sort);
     }
 
     //获得第二层分类
@@ -224,8 +224,8 @@ public class HomePageController {
     }
 
     //根据第二层的id获取其对应的第三层所有id
-    private List<Specific> selectAllSpecific(int cid) {
-        return specificeService.selectByCid(cid);
+    private List<ThirdClass> selectAllThirdClass(int cid) {
+        return thirdClassService.selectByCid(cid);
     }
 
     //获得商品总页数
