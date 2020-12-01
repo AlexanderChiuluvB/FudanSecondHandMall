@@ -25,17 +25,17 @@ import java.util.Map;
 @Controller
 public class PublishGoodsController {
     @Resource
-    private ShopInformationService shopInformationService;
+    private AllSalesService allSalesService;
     @Resource
-    private ShopContextService shopContextService;
+    private ShopMessageService shopMessageService;
     @Resource
     private UserInformationService userInformationService;
     @Resource
-    private SpecificeService specificeService;
+    private ThirdClassService thirdClassService;
     @Resource
-    private ClassificationService classificationService;
+    private SecondClassService secondClassService;
     @Resource
-    private AllKindsService allKindsService;
+    private FirstClassService firstClassService;
     @Resource
     private UserWantService userWantService;
 
@@ -56,11 +56,11 @@ public class PublishGoodsController {
             model.addAttribute("userInformation", userInformation);
         }
         try {
-            ShopInformation shopInformation = shopInformationService.selectByPrimaryKey(id);
-            model.addAttribute("shopInformation", shopInformation);
-            List<ShopContext> shopContexts = shopContextService.selectById(id);
+            AllSales allSales = allSalesService.selectByPrimaryKey(id);
+            model.addAttribute("shopInformation", allSales);
+            List<ShopMessage> shopMessages = shopMessageService.selectById(id);
             List<ShopContextBean> shopContextBeans = new ArrayList<>();
-            for (ShopContext s : shopContexts) {
+            for (ShopMessage s : shopMessages) {
                 ShopContextBean shopContextBean = new ShopContextBean();
                 UserInformation u = userInformationService.selectByPrimaryKey(s.getUid());
                 shopContextBean.setContext(s.getContext());
@@ -70,7 +70,7 @@ public class PublishGoodsController {
                 shopContextBean.setUsername(u.getUsername());
                 shopContextBeans.add(shopContextBean);
             }
-            String sort = getSort(shopInformation.getSort());
+            String sort = getSort(allSales.getSort());
             String goodsToken = TokenProccessor.getInstance().makeToken();
             request.getSession().setAttribute("goodsToken", goodsToken);
             model.addAttribute("token", goodsToken);
@@ -113,7 +113,7 @@ public class PublishGoodsController {
         }
         String goodsToken = TokenProccessor.getInstance().makeToken();
         request.getSession().setAttribute("goodsToken", goodsToken);
-        model.addAttribute("shopInformation", new ShopInformation());
+        model.addAttribute("shopInformation", new AllSales());
         model.addAttribute("action", 1);
         model.addAttribute("token", goodsToken);
         return "page/publish_product";
@@ -130,7 +130,7 @@ public class PublishGoodsController {
     public String findByName(HttpServletRequest request, Model model,
                              @RequestParam String name) {
         try {
-            List<ShopInformation> shopInformations = shopInformationService.selectByName(name);
+            List<AllSales> allsales = allSalesService.selectByName(name);
             UserInformation userInformation = (UserInformation) request.getSession().getAttribute("userInformation");
             if (StringUtils.getInstance().isNullOrEmpty(userInformation)) {
                 userInformation = new UserInformation();
@@ -140,20 +140,20 @@ public class PublishGoodsController {
             }
             List<ShopInformationBean> shopInformationBeans = new ArrayList<>();
             String sortName;
-            for (ShopInformation shopInformation : shopInformations) {
-                int sort = shopInformation.getSort();
+            for (AllSales allSales : allsales) {
+                int sort = allSales.getSort();
                 sortName = getSort(sort);
                 ShopInformationBean shopInformationBean = new ShopInformationBean();
-                shopInformationBean.setId(shopInformation.getId());
-                shopInformationBean.setName(shopInformation.getName());
-                shopInformationBean.setLevel(shopInformation.getLevel());
-                shopInformationBean.setRemark(shopInformation.getRemark());
-                shopInformationBean.setPrice(shopInformation.getPrice().doubleValue());
-                shopInformationBean.setQuantity(shopInformation.getQuantity());
-                shopInformationBean.setTransaction(shopInformation.getTransaction());
+                shopInformationBean.setId(allSales.getId());
+                shopInformationBean.setName(allSales.getName());
+                shopInformationBean.setLevel(allSales.getLevel());
+                shopInformationBean.setRemark(allSales.getRemark());
+                shopInformationBean.setPrice(allSales.getPrice().doubleValue());
+                shopInformationBean.setQuantity(allSales.getQuantity());
+                shopInformationBean.setTransaction(allSales.getTransaction());
                 shopInformationBean.setSort(sortName);
-                shopInformationBean.setUid(shopInformation.getUid());
-                shopInformationBean.setImage(shopInformation.getImage());
+                shopInformationBean.setUid(allSales.getUid());
+                shopInformationBean.setImage(allSales.getImage());
                 shopInformationBeans.add(shopInformationBean);
             }
             model.addAttribute("shopInformationBean", shopInformationBeans);
@@ -200,55 +200,55 @@ public class PublishGoodsController {
     //通过id查看商品的详情
     @RequestMapping(value = "/findShopById.do")
     @ResponseBody
-    public ShopInformation findShopById(@RequestParam int id) {
-        return shopInformationService.selectByPrimaryKey(id);
+    public AllSales findShopById(@RequestParam int id) {
+        return allSalesService.selectByPrimaryKey(id);
     }
 
     //通过分类选择商品
     @RequestMapping(value = "/selectBySort.do")
     @ResponseBody
-    public List<ShopInformation> selectBySort(@RequestParam int sort) {
-        return shopInformationService.selectBySort(sort);
+    public List<AllSales> selectBySort(@RequestParam int sort) {
+        return allSalesService.selectBySort(sort);
     }
 
     //分页查询
     @RequestMapping(value = "/selectByCounts.do")
     @ResponseBody
-    public List<ShopInformation> selectByCounts(@RequestParam int counts) {
+    public List<AllSales> selectByCounts(@RequestParam int counts) {
         Map<String, Integer> map = new HashMap<>();
         map.put("start", (counts - 1) * 12);
         map.put("end", 12);
-        return shopInformationService.selectTen(map);
+        return allSalesService.selectTen(map);
     }
 
     //获取最详细的分类，第三层
-    private Specific selectSpecificBySort(int sort) {
-        return specificeService.selectByPrimaryKey(sort);
+    private ThirdClass selectThirdClassBySort(int sort) {
+        return thirdClassService.selectByPrimaryKey(sort);
     }
 
     //获得第二层分类
-    private Classification selectClassificationByCid(int cid) {
-        return classificationService.selectByPrimaryKey(cid);
+    private SecondClass selectSecondClassByCid(int cid) {
+        return secondClassService.selectByPrimaryKey(cid);
     }
 
-    //获得第一层分类
-    private AllKinds selectAllKindsByAid(int aid) {
-        return allKindsService.selectByPrimaryKey(aid);
+    //
+    private FirstClass selectFirstClassByAid(int aid) {
+        return firstClassService.selectByPrimaryKey(aid);
     }
 
     private String getSort(int sort) {
         StringBuilder sb = new StringBuilder();
-        Specific specific = selectSpecificBySort(sort);
-        int cid = specific.getCid();
-        Classification classification = selectClassificationByCid(cid);
-        int aid = classification.getAid();
-        AllKinds allKinds = selectAllKindsByAid(aid);
-        String allName = allKinds.getName();
+        ThirdClass thirdClass = selectThirdClassBySort(sort);
+        int cid = thirdClass.getCid();
+        SecondClass secondClass = selectSecondClassByCid(cid);
+        int aid = secondClass.getAid();
+        FirstClass firstClass = selectFirstClassByAid(aid);
+        String allName = firstClass.getName();
         sb.append(allName);
         sb.append("-");
-        sb.append(classification.getName());
+        sb.append(secondClass.getName());
         sb.append("-");
-        sb.append(specific.getName());
+        sb.append(thirdClass.getName());
         return sb.toString();
     }
 

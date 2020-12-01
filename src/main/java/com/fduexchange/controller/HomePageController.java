@@ -22,15 +22,15 @@ import java.util.Map;
 @Controller
 public class HomePageController {
     @Resource
-    private ShopInformationService shopInformationService;
+    private AllSalesService allSalesService;
     @Resource
-    private SpecificeService specificeService;
+    private ThirdClassService thirdClassService;
     @Resource
-    private ClassificationService classificationService;
+    private SecondClassService secondClassService;
     @Resource
-    private AllKindsService allKindsService;
+    private FirstClassService firstClassService;
     @Resource
-    private ShopContextService shopContextService;
+    private ShopMessageService shopMessageService;
 
     /***
      * 登录首页
@@ -48,24 +48,24 @@ public class HomePageController {
             model.addAttribute("userInformation", userInformation);
         }
         try {
-            List<ShopInformation> shopInformations = selectTen(1, 5);
+            List<AllSales> allsales = selectTen(1, 5);
             List<ShopInformationBean> list = new ArrayList<>();
             int counts = getShopCounts();
             model.addAttribute("shopInformationCounts", counts);
             String stringBuffer;
-            for (ShopInformation shopInformation : shopInformations) {
-                stringBuffer = getSortName(shopInformation.getSort());
+            for (AllSales allSales : allsales) {
+                stringBuffer = getSortName(allSales.getSort());
                 ShopInformationBean shopInformationBean = new ShopInformationBean();
-                shopInformationBean.setId(shopInformation.getId());
-                shopInformationBean.setName(shopInformation.getName());
-                shopInformationBean.setLevel(shopInformation.getLevel());
-                shopInformationBean.setPrice(shopInformation.getPrice().doubleValue());
-                shopInformationBean.setRemark(shopInformation.getRemark());
+                shopInformationBean.setId(allSales.getId());
+                shopInformationBean.setName(allSales.getName());
+                shopInformationBean.setLevel(allSales.getLevel());
+                shopInformationBean.setPrice(allSales.getPrice().doubleValue());
+                shopInformationBean.setRemark(allSales.getRemark());
                 shopInformationBean.setSort(stringBuffer);
-                shopInformationBean.setQuantity(shopInformation.getQuantity());
-                shopInformationBean.setUid(shopInformation.getUid());
-                shopInformationBean.setTransaction(shopInformation.getTransaction());
-                shopInformationBean.setImage(shopInformation.getImage());
+                shopInformationBean.setQuantity(allSales.getQuantity());
+                shopInformationBean.setUid(allSales.getUid());
+                shopInformationBean.setTransaction(allSales.getTransaction());
+                shopInformationBean.setImage(allSales.getImage());
                 list.add(shopInformationBean);
             }
             model.addAttribute("shopInformationBean", list);
@@ -92,25 +92,25 @@ public class HomePageController {
             model.addAttribute("userInformation", userInformation);
         }
         try {
-            List<ShopInformation> shopInformations = selectTen(1, 12);
+            List<AllSales> allsales = selectTen(1, 12);
             List<ShopInformationBean> list = new ArrayList<>();
             int counts = getShopCounts();
             model.addAttribute("shopInformationCounts", counts);
             String sortName;
-            for (ShopInformation shopInformation : shopInformations) {
-                int sort = shopInformation.getSort();
+            for (AllSales allSales : allsales) {
+                int sort = allSales.getSort();
                 sortName = getSortName(sort);
                 ShopInformationBean shopInformationBean = new ShopInformationBean();
-                shopInformationBean.setId(shopInformation.getId());
-                shopInformationBean.setName(shopInformation.getName());
-                shopInformationBean.setLevel(shopInformation.getLevel());
-                shopInformationBean.setRemark(shopInformation.getRemark());
-                shopInformationBean.setPrice(shopInformation.getPrice().doubleValue());
+                shopInformationBean.setId(allSales.getId());
+                shopInformationBean.setName(allSales.getName());
+                shopInformationBean.setLevel(allSales.getLevel());
+                shopInformationBean.setRemark(allSales.getRemark());
+                shopInformationBean.setPrice(allSales.getPrice().doubleValue());
                 shopInformationBean.setSort(sortName);
-                shopInformationBean.setQuantity(shopInformation.getQuantity());
-                shopInformationBean.setTransaction(shopInformation.getTransaction());
-                shopInformationBean.setUid(shopInformation.getUid());
-                shopInformationBean.setImage(shopInformation.getImage());
+                shopInformationBean.setQuantity(allSales.getQuantity());
+                shopInformationBean.setTransaction(allSales.getTransaction());
+                shopInformationBean.setUid(allSales.getUid());
+                shopInformationBean.setImage(allSales.getImage());
                 list.add(shopInformationBean);
             }
             model.addAttribute("shopInformationBean", list);
@@ -124,39 +124,39 @@ public class HomePageController {
     //通过分类的第三层id获取全名
     private String getSortName(int sort) {
         StringBuilder stringBuffer = new StringBuilder();
-        Specific specific = selectSpecificBySort(sort);
-        int cid = specific.getCid();
-        Classification classification = selectClassificationByCid(cid);
-        int aid = classification.getAid();
-        AllKinds allKinds = selectAllKindsByAid(aid);
-        stringBuffer.append(allKinds.getName());
+        ThirdClass thirdClass = selectThirdClassBySort(sort);
+        int cid = thirdClass.getCid();
+        SecondClass secondClass = selectSecondClassByCid(cid);
+        int aid = secondClass.getAid();
+        FirstClass firstClass = selectFirstClassByAid(aid);
+        stringBuffer.append(firstClass.getName());
         stringBuffer.append("-");
-        stringBuffer.append(classification.getName());
+        stringBuffer.append(secondClass.getName());
         stringBuffer.append("-");
-        stringBuffer.append(specific.getName());
+        stringBuffer.append(thirdClass.getName());
 //        System.out.println(sort);
         return stringBuffer.toString();
     }
 
     //获得分类中的第一层
-    @RequestMapping(value = "/getAllKinds.do")
+    @RequestMapping(value = "/getFirstClass.do")
     @ResponseBody
-    public List<AllKinds> getAllKind() {
-        return getAllKinds();
+    public List<FirstClass> getAllKind() {
+        return getFirstClass();
     }
 
     //获得分类中的第二层，通过第一层的id
-    @RequestMapping(value = "/getClassification.do", method = RequestMethod.POST)
+    @RequestMapping(value = "/getSecondClass.do", method = RequestMethod.POST)
     @ResponseBody
-    public List<Classification> getClassificationByAid(@RequestParam int id) {
-        return selectAllClassification(id);
+    public List<SecondClass> getSecondClassByAid(@RequestParam int id) {
+        return selectAllSecondClass(id);
     }
 
     //通过第二层的id获取对应的第三层
-    @RequestMapping(value = "/getSpecific.do")
+    @RequestMapping(value = "/getThirdClass.do")
     @ResponseBody
-    public List<Specific> getSpecificByCid(@RequestParam int id) {
-        return selectAllSpecific(id);
+    public List<ThirdClass> getThirdClassByCid(@RequestParam int id) {
+        return selectAllThirdClass(id);
     }
 
     //get the shops counts
@@ -166,7 +166,7 @@ public class HomePageController {
         Map<String, Integer> map = new HashMap<>();
         int counts = 0;
         try {
-            counts = shopInformationService.getCounts();
+            counts = allSalesService.getCounts();
         } catch (Exception e) {
             e.printStackTrace();
             map.put("counts", counts);
@@ -179,7 +179,7 @@ public class HomePageController {
     @RequestMapping(value = "/getShops.do")
     @ResponseBody
     public List getShops(@RequestParam int start) {
-        List<ShopInformation> list = new ArrayList<>();
+        List<AllSales> list = new ArrayList<>();
         try {
             int end = 12;
             list = selectTen(start, end);
@@ -191,46 +191,46 @@ public class HomePageController {
     }
 
     //获取商品，分页,一次性获取end个
-    private List<ShopInformation> selectTen(int start, int end) {
+    private List<AllSales> selectTen(int start, int end) {
         Map<String, Integer> map = new HashMap();
         map.put("start", (start - 1) * end);
         map.put("end", end);
-        return shopInformationService.selectTen(map);
+        return allSalesService.selectTen(map);
     }
 
     //获取最详细的分类，第三层
-    private Specific selectSpecificBySort(int sort) {
-        return specificeService.selectByPrimaryKey(sort);
+    private ThirdClass selectThirdClassBySort(int sort) {
+        return thirdClassService.selectByPrimaryKey(sort);
     }
 
     //获得第二层分类
-    private Classification selectClassificationByCid(int cid) {
-        return classificationService.selectByPrimaryKey(cid);
+    private SecondClass selectSecondClassByCid(int cid) {
+        return secondClassService.selectByPrimaryKey(cid);
     }
 
     //获得第一层分类
-    private AllKinds selectAllKindsByAid(int aid) {
-        return allKindsService.selectByPrimaryKey(aid);
+    private FirstClass selectFirstClassByAid(int aid) {
+        return firstClassService.selectByPrimaryKey(aid);
     }
 
     //获得第一层所有
-    private List<AllKinds> getAllKinds() {
-        return allKindsService.selectAll();
+    private List<FirstClass> getFirstClass() {
+        return firstClassService.selectAll();
     }
 
     //根据第一层的id获取该层下的第二层
-    private List<Classification> selectAllClassification(int aid) {
-        return classificationService.selectByAid(aid);
+    private List<SecondClass> selectAllSecondClass(int aid) {
+        return secondClassService.selectByAid(aid);
     }
 
     //根据第二层的id获取其对应的第三层所有id
-    private List<Specific> selectAllSpecific(int cid) {
-        return specificeService.selectByCid(cid);
+    private List<ThirdClass> selectAllThirdClass(int cid) {
+        return thirdClassService.selectByCid(cid);
     }
 
     //获得商品总页数
     private int getShopCounts() {
-        return shopInformationService.getCounts();
+        return allSalesService.getCounts();
     }
 
 }
