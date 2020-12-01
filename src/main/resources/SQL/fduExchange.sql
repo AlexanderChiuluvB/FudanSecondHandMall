@@ -101,24 +101,6 @@ PRIMARY KEY (`id`)
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for goodsoforderform
--- ----------------------------
-DROP TABLE IF EXISTS `goodsoforderform`;
-CREATE TABLE `goodsoforderform` (
-`id` int(11) NOT NULL AUTO_INCREMENT,
-`ofid` int(11) NOT NULL,
-`sid` int(11) NOT NULL,
-`modified` datetime DEFAULT NULL,
-`quantity` int(11) NOT NULL,
-`display` int(11) NOT NULL DEFAULT '1',
-PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of goodsoforderform
--- ----------------------------
-
--- ----------------------------
 -- Table structure for orderform
 -- ----------------------------
 DROP TABLE IF EXISTS `orderform`;
