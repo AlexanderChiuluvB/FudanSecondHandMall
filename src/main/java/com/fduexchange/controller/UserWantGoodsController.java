@@ -31,7 +31,7 @@ public class UserWantGoodsController {
     @Resource
     private AllSalesService allSalesService;
     @Resource
-    private GoodsCarService goodsCarService;
+    private ShoppingCartService shoppingCartService;
     @Resource
     private ThirdClassService thirdClassService;
     @Resource
@@ -231,9 +231,9 @@ public class UserWantGoodsController {
             model.addAttribute("userInformation", userInformation);
         }
         int uid = userInformation.getId();
-        List<GoodsCar> goodsCars = goodsCarService.selectByUid(uid);
+        List<ShoppingCart> shoppingCarts = shoppingCartService.selectByUid(uid);
         List<GoodsCarBean> goodsCarBeans = new ArrayList<>();
-        for (GoodsCar goodsCar : goodsCars) {
+        for (ShoppingCart goodsCar : shoppingCarts) {
             GoodsCarBean goodsCarBean = new GoodsCarBean();
             goodsCarBean.setUid(goodsCar.getUid());
             goodsCarBean.setSid(goodsCar.getSid());
@@ -266,13 +266,13 @@ public class UserWantGoodsController {
             return BaseResponse.fail();
         }
         int uid = userInformation.getId();
-        GoodsCar goodsCar = new GoodsCar();
-        goodsCar.setDisplay(1);
-        goodsCar.setModified(new Date());
-        goodsCar.setQuantity(1);
-        goodsCar.setUid(uid);
-        goodsCar.setSid(id);
-        goodsCarService.insertSelective(goodsCar);
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.setDisplay(1);
+        shoppingCart.setModified(new Date());
+        shoppingCart.setQuantity(1);
+        shoppingCart.setUid(uid);
+        shoppingCart.setSid(id);
+        shoppingCartService.insertSelective(shoppingCart);
         return BaseResponse.success();
     }
 
@@ -291,12 +291,12 @@ public class UserWantGoodsController {
             return BaseResponse.fail();
         }
         int uid = userInformation.getId();
-        GoodsCar goodsCar = new GoodsCar();
-        goodsCar.setDisplay(0);
-        goodsCar.setId(id);
-        goodsCar.setSid(sid);
-        goodsCar.setUid(uid);
-        int result = goodsCarService.updateByPrimaryKeySelective(goodsCar);
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.setDisplay(0);
+        shoppingCart.setId(id);
+        shoppingCart.setSid(sid);
+        shoppingCart.setUid(uid);
+        int result = shoppingCartService.updateByPrimaryKeySelective(shoppingCart);
         if (result != 1) {
             return BaseResponse.fail();
         }

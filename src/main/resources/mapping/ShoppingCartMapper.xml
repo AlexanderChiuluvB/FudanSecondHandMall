@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.fduexchange.dao.GoodsCarMapper">
-    <resultMap id="BaseResultMap" type="com.fduexchange.pojo.GoodsCar">
+<mapper namespace="com.fduexchange.dao.ShoppingCartMapper">
+    <resultMap id="BaseResultMap" type="com.fduexchange.pojo.ShoppingCart">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="modified" property="modified" jdbcType="TIMESTAMP"/>
         <result column="sid" property="sid" jdbcType="INTEGER"/>
@@ -11,7 +11,7 @@
     </resultMap>
 
     <sql id="table">
-        goodscar
+        ShoppingCart
     </sql>
 
     <sql id="all">
@@ -37,7 +37,7 @@
         <include refid="table"/>
         where id = #{id,jdbcType=INTEGER}
     </delete>
-    <insert id="insert" parameterType="com.fduexchange.pojo.GoodsCar">
+    <insert id="insert" parameterType="com.fduexchange.pojo.ShoppingCart">
         insert into
         <include refid="table"/>
         (id, modified, sid,
@@ -47,7 +47,7 @@
         #{uid,jdbcType=INTEGER}, #{quantity,jdbcType=INTEGER}, #{display,jdbcType=INTEGER}
         )
     </insert>
-    <insert id="insertSelective" parameterType="com.fduexchange.pojo.GoodsCar">
+    <insert id="insertSelective" parameterType="com.fduexchange.pojo.ShoppingCart">
         insert into
         <include refid="table"/>
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -91,7 +91,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.fduexchange.pojo.GoodsCar">
+    <update id="updateByPrimaryKeySelective" parameterType="com.fduexchange.pojo.ShoppingCart">
         update
         <include refid="table"/>
         <set>
@@ -113,7 +113,7 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.fduexchange.pojo.GoodsCar">
+    <update id="updateByPrimaryKey" parameterType="com.fduexchange.pojo.ShoppingCart">
         update
         <include refid="table"/>
         set modified = #{modified,jdbcType=TIMESTAMP},

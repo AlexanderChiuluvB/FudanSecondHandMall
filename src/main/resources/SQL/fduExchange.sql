@@ -83,10 +83,10 @@ INSERT INTO `SecondClass` VALUES ('27', '其他', null, '6');
 INSERT INTO `SecondClass` VALUES ('28', '其他', null, '7');
 
 -- ----------------------------
--- Table structure for Cart
+-- Table structure for ShoppingCart
 -- ----------------------------
-DROP TABLE IF EXISTS `Cart`;
-CREATE TABLE `Cart` (
+DROP TABLE IF EXISTS `ShoppingCart`;
+CREATE TABLE `ShoppingCart` (
 `id` int(11) NOT NULL AUTO_INCREMENT,
 `modified` datetime DEFAULT NULL,
 `sid` int(11) NOT NULL,
@@ -95,10 +95,6 @@ CREATE TABLE `Cart` (
 `display` int(11) NOT NULL DEFAULT '1',
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of Cart
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for ShopMessage
