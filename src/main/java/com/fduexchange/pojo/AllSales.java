@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class ShopInformation implements Serializable {
+public class AllSales implements Serializable {
     private Integer id;
 
     private Date modified;

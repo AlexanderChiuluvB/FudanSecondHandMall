@@ -117,10 +117,10 @@ PRIMARY KEY (`id`)
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shopcontext
+-- Table structure for ShopMessage
 -- ----------------------------
-DROP TABLE IF EXISTS `shopcontext`;
-CREATE TABLE `shopcontext` (
+DROP TABLE IF EXISTS `ShopMessage`;
+CREATE TABLE `ShopMessage` (
 `id` int(11) NOT NULL AUTO_INCREMENT,
 `modified` datetime DEFAULT NULL,
 `sid` int(11) NOT NULL,
@@ -131,18 +131,19 @@ PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of shopcontext
+-- Records of ShopMessage
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shopinformation
+-- Table structure for AllSales
 -- ----------------------------
-DROP TABLE IF EXISTS `shopinformation`;
-CREATE TABLE `shopinformation` (
-`
+DROP TABLE IF EXISTS `AllSales`;
+CREATE TABLE `AllSales` (
+
 `uid` int(11) NOT NULL,
 `image` varchar(255) DEFAULT NULL,
-`thumbnails` varchar(255) DEFAULT NULL,id` int(11) NOT NULL AUTO_INCREMENT,
+`thumbnails` varchar(255) DEFAULT NULL,
+`id` int(11) NOT NULL AUTO_INCREMENT,
 `modified` datetime DEFAULT NULL,
 `name` varchar(50) NOT NULL,
 `level` int(11) NOT NULL,
@@ -158,7 +159,7 @@ KEY `index_uid` (`uid`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=1098 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of shopinformation
+-- Records of AllSales
 -- ----------------------------
 
 -- ----------------------------

@@ -3,7 +3,7 @@ package com.fduexchange.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
-public class ShopContext implements Serializable {
+public class ShopMessage implements Serializable {
     private Integer id;
 
     private Date modified;

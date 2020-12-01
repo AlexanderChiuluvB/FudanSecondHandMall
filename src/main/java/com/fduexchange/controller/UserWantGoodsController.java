@@ -29,7 +29,7 @@ public class UserWantGoodsController {
     public static final String uploadPath = "/usr/local/tomcat/webapps/";
 
     @Resource
-    private ShopInformationService shopInformationService;
+    private AllSalesService allSalesService;
     @Resource
     private GoodsCarService goodsCarService;
     @Resource
@@ -39,7 +39,7 @@ public class UserWantGoodsController {
     @Resource
     private FirstClassService firstClassService;
     @Resource
-    private ShopContextService shopContextService;
+    private ShopMessageService shopMessageService;
     @Resource
     private UserCollectionService userCollectionService;
     @Resource
@@ -307,12 +307,12 @@ public class UserWantGoodsController {
             goodsCarBean.setModified(goodsCar.getModified());
             goodsCarBean.setId(goodsCar.getId());
             goodsCarBean.setQuantity(goodsCar.getQuantity());
-            ShopInformation shopInformation = shopInformationService.selectByPrimaryKey(goodsCar.getSid());
-            goodsCarBean.setName(shopInformation.getName());
-            goodsCarBean.setRemark(shopInformation.getRemark());
-            goodsCarBean.setImage(shopInformation.getImage());
-            goodsCarBean.setPrice(shopInformation.getPrice().doubleValue());
-            goodsCarBean.setSort(getSort(shopInformation.getSort()));
+            AllSales allSales = allSalesService.selectByPrimaryKey(goodsCar.getSid());
+            goodsCarBean.setName(allSales.getName());
+            goodsCarBean.setRemark(allSales.getRemark());
+            goodsCarBean.setImage(allSales.getImage());
+            goodsCarBean.setPrice(allSales.getPrice().doubleValue());
+            goodsCarBean.setSort(getSort(allSales.getSort()));
             goodsCarBeans.add(goodsCarBean);
         }
         model.addAttribute("list", goodsCarBeans);
@@ -443,21 +443,21 @@ public class UserWantGoodsController {
                 thumbnailsFile.mkdir();
             }
 
-            ShopInformation shopInformation = new ShopInformation();
-            shopInformation.setName(name);
-            shopInformation.setLevel(level);
-            shopInformation.setRemark(remark);
-            shopInformation.setPrice(new BigDecimal(price));
-            shopInformation.setSort(sort);
-            shopInformation.setQuantity(quantity);
-            shopInformation.setModified(new Date());
-            shopInformation.setImage(imagePath);
-            shopInformation.setThumbnails(thumbnailPath);
+            AllSales allSales = new AllSales();
+            allSales.setName(name);
+            allSales.setLevel(level);
+            allSales.setRemark(remark);
+            allSales.setPrice(new BigDecimal(price));
+            allSales.setSort(sort);
+            allSales.setQuantity(quantity);
+            allSales.setModified(new Date());
+            allSales.setImage(imagePath);
+            allSales.setThumbnails(thumbnailPath);
             int uid = (int) request.getSession().getAttribute("uid");
-            shopInformation.setUid(uid);
+            allSales.setUid(uid);
 
             try {
-                int result = shopInformationService.insertSelective(shopInformation);
+                int result = allSalesService.insertSelective(allSales);
                 if (result != 1) {
                     model.addAttribute("message", "请输入正确的格式");
                     model.addAttribute("token", goodsToken);
@@ -471,7 +471,7 @@ public class UserWantGoodsController {
                 request.getSession().setAttribute("goodsToken", goodsToken);
                 return "page/publish_product";
             }
-            int sid = shopInformationService.selectIdByImage(imagePath);
+            int sid = allSalesService.selectIdByImage(imagePath);
 
             //更新商品的发布表
             UserRelease userRelease = new UserRelease();
@@ -481,25 +481,25 @@ public class UserWantGoodsController {
             try {
                 int result = userReleaseService.insertSelective(userRelease);
                 if (result != 1) {
-                    shopInformationService.deleteByPrimaryKey(sid);
+                    allSalesService.deleteByPrimaryKey(sid);
                     model.addAttribute("token", goodsToken);
                     model.addAttribute("message", "输入格式错误");
                     request.getSession().setAttribute("goodsToken", goodsToken);
                     return "page/publish_product";
                 }
             } catch (Exception e) {
-                shopInformationService.deleteByPrimaryKey(sid);
+                allSalesService.deleteByPrimaryKey(sid);
                 e.printStackTrace();
                 model.addAttribute("token", goodsToken);
                 model.addAttribute("message", "输入格式错误");
                 request.getSession().setAttribute("goodsToken", goodsToken);
                 return "page/publish_product";
             }
-            shopInformation.setId(sid);
+            allSales.setId(sid);
             goodsToken = TokenProccessor.getInstance().makeToken();
             request.getSession().setAttribute("goodsToken", goodsToken);
             model.addAttribute("token", goodsToken);
-            model.addAttribute("shopInformation", shopInformation);
+            model.addAttribute("shopInformation", allSales);
             model.addAttribute("userInformation", userInformation);
             String sbSorted = getSort(sort);
             model.addAttribute("sort", sbSorted);
@@ -507,17 +507,17 @@ public class UserWantGoodsController {
             return "redirect:/my_publish_product_page.do";
 
         } else if (action == 2) {//更新商品
-            ShopInformation shopInformation = new ShopInformation();
-            shopInformation.setModified(new Date());
-            shopInformation.setQuantity(quantity);
-            shopInformation.setSort(sort);
-            shopInformation.setPrice(new BigDecimal(price));
-            shopInformation.setRemark(remark);
-            shopInformation.setLevel(level);
-            shopInformation.setName(name);
-            shopInformation.setId(id);
+            AllSales allSales = new AllSales();
+            allSales.setModified(new Date());
+            allSales.setQuantity(quantity);
+            allSales.setSort(sort);
+            allSales.setPrice(new BigDecimal(price));
+            allSales.setRemark(remark);
+            allSales.setLevel(level);
+            allSales.setName(name);
+            allSales.setId(id);
             try {
-                int result = shopInformationService.updateByPrimaryKeySelective(shopInformation);
+                int result = allSalesService.updateByPrimaryKeySelective(allSales);
                 if (result != 1) {
                     return "redirect:publish_product.do";
                 }
@@ -528,9 +528,9 @@ public class UserWantGoodsController {
             goodsToken = TokenProccessor.getInstance().makeToken();
             request.getSession().setAttribute("goodsToken", goodsToken);
             model.addAttribute("token", goodsToken);
-            shopInformation = shopInformationService.selectByPrimaryKey(id);
+            allSales = allSalesService.selectByPrimaryKey(id);
             model.addAttribute("userInformation", userInformation);
-            model.addAttribute("shopInformation", shopInformation);
+            model.addAttribute("shopInformation", allSales);
             model.addAttribute("action", 2);
             model.addAttribute("sort", getSort(sort));
         }
@@ -548,11 +548,11 @@ public class UserWantGoodsController {
         String goodsToken = TokenProccessor.getInstance().makeToken();
         request.getSession().setAttribute("goodsToken", goodsToken);
         model.addAttribute("token", goodsToken);
-        ShopInformation shopInformation = shopInformationService.selectByPrimaryKey(id);
+        AllSales allSales = allSalesService.selectByPrimaryKey(id);
         model.addAttribute("userInformation", userInformation);
-        model.addAttribute("shopInformation", shopInformation);
+        model.addAttribute("shopInformation", allSales);
         model.addAttribute("action", 2);
-        model.addAttribute("sort", getSort(shopInformation.getSort()));
+        model.addAttribute("sort", getSort(allSales.getSort()));
         return "page/publish_product";
     }
 
@@ -581,15 +581,15 @@ public class UserWantGoodsController {
         if (StringUtils.getInstance().isNullOrEmpty(goodsToken) || !token.equals(goodsToken)) {
             return map;
         }
-        ShopContext shopContext = new ShopContext();
-        shopContext.setContext(context);
+        ShopMessage shopMessage = new ShopMessage();
+        shopMessage.setContext(context);
         Date date = new Date();
-        shopContext.setModified(date);
-        shopContext.setSid(id);
+        shopMessage.setModified(date);
+        shopMessage.setSid(id);
         int uid = (int) request.getSession().getAttribute("uid");
-        shopContext.setUid(uid);
+        shopMessage.setUid(uid);
         try {
-            int result = shopContextService.insertSelective(shopContext);
+            int result = shopMessageService.insertSelective(shopMessage);
             if (result != 1) {
                 return map;
             }
@@ -615,12 +615,12 @@ public class UserWantGoodsController {
         } else {
             model.addAttribute("userInformation", userInformation);
         }
-        ShopInformation shopInformation = new ShopInformation();
-        shopInformation.setModified(new Date());
-        shopInformation.setDisplay(0);
-        shopInformation.setId(id);
+        AllSales allSales = new AllSales();
+        allSales.setModified(new Date());
+        allSales.setDisplay(0);
+        allSales.setId(id);
         try {
-            int result = shopInformationService.updateByPrimaryKeySelective(shopInformation);
+            int result = allSalesService.updateByPrimaryKeySelective(allSales);
             if (result != 1) {
                 return "redirect:my_publish_product_page.do";
             }
@@ -655,22 +655,22 @@ public class UserWantGoodsController {
             model.addAttribute("userInformation", userInformation);
         }
         int uid = (int) request.getSession().getAttribute("uid");
-        List<ShopInformation> shopInformations = shopInformationService.selectUserReleaseByUid(uid);
+        List<AllSales> allsales = allSalesService.selectUserReleaseByUid(uid);
         List<ShopInformationBean> list = new ArrayList<>();
         String stringBuffer;
-        for (ShopInformation shopInformation : shopInformations) {
-            stringBuffer = getSort(shopInformation.getSort());
+        for (AllSales allSales : allsales) {
+            stringBuffer = getSort(allSales.getSort());
             ShopInformationBean shopInformationBean = new ShopInformationBean();
-            shopInformationBean.setId(shopInformation.getId());
-            shopInformationBean.setName(shopInformation.getName());
-            shopInformationBean.setLevel(shopInformation.getLevel());
-            shopInformationBean.setPrice(shopInformation.getPrice().doubleValue());
-            shopInformationBean.setRemark(shopInformation.getRemark());
+            shopInformationBean.setId(allSales.getId());
+            shopInformationBean.setName(allSales.getName());
+            shopInformationBean.setLevel(allSales.getLevel());
+            shopInformationBean.setPrice(allSales.getPrice().doubleValue());
+            shopInformationBean.setRemark(allSales.getRemark());
             shopInformationBean.setSort(stringBuffer);
-            shopInformationBean.setQuantity(shopInformation.getQuantity());
-            shopInformationBean.setTransaction(shopInformation.getTransaction());
-            shopInformationBean.setUid(shopInformation.getUid());
-            shopInformationBean.setImage(shopInformation.getImage());
+            shopInformationBean.setQuantity(allSales.getQuantity());
+            shopInformationBean.setTransaction(allSales.getTransaction());
+            shopInformationBean.setUid(allSales.getUid());
+            shopInformationBean.setImage(allSales.getImage());
             list.add(shopInformationBean);
         }
         model.addAttribute("shopInformationBean", list);
@@ -749,8 +749,8 @@ public class UserWantGoodsController {
         return firstClassService.selectByPrimaryKey(aid);
     }
 
-    public void save(ShopInformation shopInformation, UserRelease userRelease) {
-        shopInformationService.insertSelective(shopInformation);
+    public void save(AllSales shopInformation, UserRelease userRelease) {
+        allSalesService.insertSelective(shopInformation);
         userReleaseService.insertSelective(userRelease);
     }
 }

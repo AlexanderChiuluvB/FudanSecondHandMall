@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.fduexchange.dao.ShopInformationMapper" >
-  <resultMap id="BaseResultMap" type="com.fduexchange.pojo.ShopInformation" >
+<mapper namespace="com.fduexchange.dao.AllSalesMapper" >
+  <resultMap id="BaseResultMap" type="com.fduexchange.pojo.AllSales" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="modified" property="modified" jdbcType="TIMESTAMP" />
     <result column="name" property="name" jdbcType="VARCHAR" />
@@ -19,7 +19,7 @@
   </resultMap>
 
   <sql id="table">
-    shopinformation
+    AllSales
   </sql>
 
   <sql id="all" >
@@ -73,7 +73,7 @@
     delete from <include refid="table"/>
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.fduexchange.pojo.ShopInformation" >
+  <insert id="insert" parameterType="com.fduexchange.pojo.AllSales" >
     insert into <include refid="table"/> (id, modified, name,
       level, remark, price, 
       sort, display, quantity, 
@@ -85,7 +85,7 @@
       #{transaction,jdbcType=INTEGER}, #{sales,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER},
       #{image,jdbcType=VARCHAR}),#{thumbnails,jdbcType=VARCHAR}
   </insert>
-  <insert id="insertSelective" parameterType="com.fduexchange.pojo.ShopInformation" >
+  <insert id="insertSelective" parameterType="com.fduexchange.pojo.AllSales" >
     insert into <include refid="table"/>
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -176,7 +176,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.fduexchange.pojo.ShopInformation" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.fduexchange.pojo.AllSales" >
     update <include refid="table"/>
     <set >
       <if test="modified != null" >
@@ -221,7 +221,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.fduexchange.pojo.ShopInformation" >
+  <update id="updateByPrimaryKey" parameterType="com.fduexchange.pojo.AllSales" >
     update
     <include refid="table"/>
     set modified = #{modified,jdbcType=TIMESTAMP},

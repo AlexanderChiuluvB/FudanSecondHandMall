@@ -22,7 +22,7 @@ import java.util.Map;
 @Controller
 public class HomePageController {
     @Resource
-    private ShopInformationService shopInformationService;
+    private AllSalesService allSalesService;
     @Resource
     private SpecificeService specificeService;
     @Resource
@@ -30,7 +30,7 @@ public class HomePageController {
     @Resource
     private FirstClassService firstClassService;
     @Resource
-    private ShopContextService shopContextService;
+    private ShopMessageService shopMessageService;
 
     /***
      * 登录首页
@@ -48,24 +48,24 @@ public class HomePageController {
             model.addAttribute("userInformation", userInformation);
         }
         try {
-            List<ShopInformation> shopInformations = selectTen(1, 5);
+            List<AllSales> allsales = selectTen(1, 5);
             List<ShopInformationBean> list = new ArrayList<>();
             int counts = getShopCounts();
             model.addAttribute("shopInformationCounts", counts);
             String stringBuffer;
-            for (ShopInformation shopInformation : shopInformations) {
-                stringBuffer = getSortName(shopInformation.getSort());
+            for (AllSales allSales : allsales) {
+                stringBuffer = getSortName(allSales.getSort());
                 ShopInformationBean shopInformationBean = new ShopInformationBean();
-                shopInformationBean.setId(shopInformation.getId());
-                shopInformationBean.setName(shopInformation.getName());
-                shopInformationBean.setLevel(shopInformation.getLevel());
-                shopInformationBean.setPrice(shopInformation.getPrice().doubleValue());
-                shopInformationBean.setRemark(shopInformation.getRemark());
+                shopInformationBean.setId(allSales.getId());
+                shopInformationBean.setName(allSales.getName());
+                shopInformationBean.setLevel(allSales.getLevel());
+                shopInformationBean.setPrice(allSales.getPrice().doubleValue());
+                shopInformationBean.setRemark(allSales.getRemark());
                 shopInformationBean.setSort(stringBuffer);
-                shopInformationBean.setQuantity(shopInformation.getQuantity());
-                shopInformationBean.setUid(shopInformation.getUid());
-                shopInformationBean.setTransaction(shopInformation.getTransaction());
-                shopInformationBean.setImage(shopInformation.getImage());
+                shopInformationBean.setQuantity(allSales.getQuantity());
+                shopInformationBean.setUid(allSales.getUid());
+                shopInformationBean.setTransaction(allSales.getTransaction());
+                shopInformationBean.setImage(allSales.getImage());
                 list.add(shopInformationBean);
             }
             model.addAttribute("shopInformationBean", list);
@@ -92,25 +92,25 @@ public class HomePageController {
             model.addAttribute("userInformation", userInformation);
         }
         try {
-            List<ShopInformation> shopInformations = selectTen(1, 12);
+            List<AllSales> allsales = selectTen(1, 12);
             List<ShopInformationBean> list = new ArrayList<>();
             int counts = getShopCounts();
             model.addAttribute("shopInformationCounts", counts);
             String sortName;
-            for (ShopInformation shopInformation : shopInformations) {
-                int sort = shopInformation.getSort();
+            for (AllSales allSales : allsales) {
+                int sort = allSales.getSort();
                 sortName = getSortName(sort);
                 ShopInformationBean shopInformationBean = new ShopInformationBean();
-                shopInformationBean.setId(shopInformation.getId());
-                shopInformationBean.setName(shopInformation.getName());
-                shopInformationBean.setLevel(shopInformation.getLevel());
-                shopInformationBean.setRemark(shopInformation.getRemark());
-                shopInformationBean.setPrice(shopInformation.getPrice().doubleValue());
+                shopInformationBean.setId(allSales.getId());
+                shopInformationBean.setName(allSales.getName());
+                shopInformationBean.setLevel(allSales.getLevel());
+                shopInformationBean.setRemark(allSales.getRemark());
+                shopInformationBean.setPrice(allSales.getPrice().doubleValue());
                 shopInformationBean.setSort(sortName);
-                shopInformationBean.setQuantity(shopInformation.getQuantity());
-                shopInformationBean.setTransaction(shopInformation.getTransaction());
-                shopInformationBean.setUid(shopInformation.getUid());
-                shopInformationBean.setImage(shopInformation.getImage());
+                shopInformationBean.setQuantity(allSales.getQuantity());
+                shopInformationBean.setTransaction(allSales.getTransaction());
+                shopInformationBean.setUid(allSales.getUid());
+                shopInformationBean.setImage(allSales.getImage());
                 list.add(shopInformationBean);
             }
             model.addAttribute("shopInformationBean", list);
@@ -166,7 +166,7 @@ public class HomePageController {
         Map<String, Integer> map = new HashMap<>();
         int counts = 0;
         try {
-            counts = shopInformationService.getCounts();
+            counts = allSalesService.getCounts();
         } catch (Exception e) {
             e.printStackTrace();
             map.put("counts", counts);
@@ -179,7 +179,7 @@ public class HomePageController {
     @RequestMapping(value = "/getShops.do")
     @ResponseBody
     public List getShops(@RequestParam int start) {
-        List<ShopInformation> list = new ArrayList<>();
+        List<AllSales> list = new ArrayList<>();
         try {
             int end = 12;
             list = selectTen(start, end);
@@ -191,11 +191,11 @@ public class HomePageController {
     }
 
     //获取商品，分页,一次性获取end个
-    private List<ShopInformation> selectTen(int start, int end) {
+    private List<AllSales> selectTen(int start, int end) {
         Map<String, Integer> map = new HashMap();
         map.put("start", (start - 1) * end);
         map.put("end", end);
-        return shopInformationService.selectTen(map);
+        return allSalesService.selectTen(map);
     }
 
     //获取最详细的分类，第三层
@@ -230,7 +230,7 @@ public class HomePageController {
 
     //获得商品总页数
     private int getShopCounts() {
-        return shopInformationService.getCounts();
+        return allSalesService.getCounts();
     }
 
 }
