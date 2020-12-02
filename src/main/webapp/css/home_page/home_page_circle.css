@@ -1,0 +1,208 @@
+.index_tags {
+    top: 25%;
+    left: 5%;
+    width: 90%;
+    height: 150px;
+    position: absolute;
+    overflow: hidden;
+    display: block;
+}
+
+.index_tags .a_tag{
+    width: 10%;
+    text-align: center;
+    background-color: #da91ff;
+    box-shadow: 5px 5px 10px #888888;;
+    display: inline-block;
+    border-radius: 10px;
+}
+
+.my_slider {
+    top: 45%;
+    left: 5%;
+    width: 50%;
+    height: 480px;
+    position: absolute;
+    overflow: hidden;
+    background-color: #3f51b5;
+    box-shadow: 5px 5px 10px #888888;;
+    display: block;
+    border-radius: 10px;
+}
+
+.my_slider_right {
+    top: 46%;
+    right: 10%;
+    width: 35%;
+    height: 455px;
+    position: absolute;
+    overflow: hidden;
+    background-color: #e4e4ea;
+    box-shadow: 5px 5px 10px #888888;;
+    display: block;
+}
+
+.my_slider_right h2 {
+    left: 6%;
+    position: absolute;
+}
+.my_slider_right .lists_div {
+    top: 12%;
+    height: 88%;
+    width: 100%;
+    background-color: #e4e4ea;
+    position: absolute;
+    display: block;
+}
+.my_slider_right .lists_div .list_div{
+    width: 100%;
+    margin: 0%;
+    padding: 0%;
+    border-color: #003eff;
+    border-style: solid;
+    border-width: 1px;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    background-color: #ffffff;
+    display: block;
+}
+
+.my_slider_right .lists_div .list_div a{
+    font-size: 20px;
+    color: coral;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    padding: 0%;
+    margin: 0%;
+}
+
+.my_slider_right .lists_div .list_div p{
+    font-size: 10px;
+    color: gray;
+    text-align: center;
+    style: "white-space: pre";
+    padding: 0%;
+    margin: 0%;
+}
+
+.my_slide {
+    display: block;
+    width: 80%;
+    left: 10%;
+    top: 0;
+    height: 100%;
+    position: absolute;
+    float: left;
+    opacity: 0;
+    color: white;
+}
+
+.my_slide h1 {
+    position: absolute;
+    left: 5%;
+    top: 10%;
+    width: 30%;
+}
+
+.my_slide p {
+    position: absolute;
+    left: 5%;
+    top: 50%;
+    width: 30%;
+    overflow: inherit;
+}
+
+.slide_img {
+    position: absolute;
+    left: 45%;
+    top: 15%;
+    width: 50%;
+}
+
+.left_border {
+    position: absolute;
+    left: 5%;
+    top: 50%;
+    width: 50px;
+    height: 90px;
+    border-radius: 6px;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.left_turn {
+    position: absolute;
+    left: 8px;
+    top: 5px;
+    width: 34px;
+    height: 80px;
+    background-image: url("../../img/home/arrows.png");
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.right_border {
+    position: absolute;
+    left: 92%;
+    top: 50%;
+    width: 50px;
+    height: 90px;
+    border-radius: 6px;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.right_turn {
+    position: absolute;
+    left: 8px;
+    top: 5px;
+    width: 34px;
+    height: 80px;
+    background-image: url("../../img/home/arrows.png");
+    background-repeat: no-repeat;
+    background-position: -34px 0;
+    cursor: pointer;
+}
+
+.current {
+    opacity: 1;
+}
+
+.product_name {
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+    margin-top: 2em;
+}
+
+.product_name:hover {
+    color: #3f51b5;
+}
+
+.product {
+    position: relative;
+}
+
+.show_img {
+    max-height: 180px;
+    max-width: 100%;
+    transition: opacity 0.35s, transform 0.35s;
+    opacity: 1;
+    cursor: auto;
+}
+
+.product:hover .show_img {
+    opacity: .5;
+}
+
+.product:hover .show_tip {
+    opacity: 1;
+}
+
+.show_tip {
+    opacity: 0;
+    transition: opacity 0.35s, transform 0.35s;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    cursor: auto;
+}
