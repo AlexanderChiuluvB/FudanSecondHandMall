@@ -33,6 +33,6 @@
     #{sales_id,jdbcType=INTEGER}, #{sales_name,jdbcType=VARCHAR},
     #{quantity,jdbcType=INTEGER},#{price,jdbcType=DECIMAL},
     #{purchaser_name,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
-    #{contact_info,jdbcType=VARCHAR}),#{state,jdbcType=BOLLEAN}
+    #{contact_info,jdbcType=VARCHAR}),#{state,jdbcType=BOOLEAN}
   </insert>
 </mapper>
