@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>FDU二手交易平台</title>
+    <link rel="icon" href="/img/page_icon.png"/>
+    <link href="/css/home_page/home_page_circle.css" rel="stylesheet"/>
+    <link href="/css/home_page/header_and_nav.css" rel="stylesheet"/>
+    <link href="/css/home_page/bottom_ifon_and_feature.css" rel="stylesheet"/>
+    <script src="/js/jquery-1.3.2.min.js"></script>
+    <script src="/js/home/home_page_circle.js"></script>
+    <script src="/js/home/header_model_js.js"></script>
+</head>
+<body>
+<header th:include="header :: copy"></header>
+<div th:include="short_nav_show :: short_nav_show" class="short_nav_show"></div>
+<nav th:include="my_nav :: my_nav" class="my_nav"></nav>
+<div th:include="personal_nav :: personal_nav" class="personal_nav"></div>
+
+<div class="index_tags">
+    <h3>热门标签</h3>
+    <div class="a_tag">
+        教材教辅
+    </div>
+    <div class="a_tag">
+        畅销文学
+    </div>
+    <div class="a_tag">
+        耳机
+    </div>
+</div>
+<div class="my_slider">
+    <div class="my_slide">
+        <h1>数学分析第二版（下）-陈纪修</h1>
+        <p>
+            出一本数学分析（下），陈纪修第二版，有完整拿A笔记，原价￥42
+            价格：￥20
+            分类：教育-图书-教材教辅
+            联系方式：手机15228760232
+        </p>
+        <div class="slide_img">
+            <img src="/img/home/Indexp1.jpg" style="width: 300px;height: 300px"/>
+        </div>
+    </div>
+    <div class="my_slide">
+        <h1>Airpods2</h1>
+        <p>
+            出全新未拆封Airpods2，2020年6月购买，包装完整，含发票，购买价￥1299
+            价格：￥800
+            分类：数码电器-其他-耳机
+            联系方式：微信de397043179
+        </p>
+        <div class="slide_img">
+            <img src="/img/home/Indexp2.jpg" style="width: 300px;height: 300px"/>
+        </div>
+    </div>
+    <div class="my_slide">
+        <h1>HABA护肤水</h1>
+        <p>
+            出一瓶180ml的HABA护肤水，2020年8月购买，因过敏只用了一次，原价￥228
+            价格：￥180
+            分类：个人护理-护肤品-补水
+            联系方式：微信jock204829
+        </p>
+        <div class="slide_img">
+            <img src="/img/home/Indexp3.jpg" style="width: 300px;height: 300px"/>
+        </div>
+    </div>
+    <div class="my_slide">
+        <h1>多肉绿植</h1>
+        <p>
+            出一盆多肉，外口径15cm，已养8个月
+            价格：￥20
+            分类：生活家居-花卉绿植-多肉植物
+            联系方式：手机18021323009
+        </p>
+        <div class="slide_img">
+            <img src="/img/home/Indexp4.jpg" style="width: 300px;height: 300px"/>
+        </div>
+    </div>
+    <div class="my_slide current">
+        <h1>良品铺子零食大礼包</h1>
+        <p>
+            出良品铺子零食大礼包，原价￥119，2020年11月3日购买，因体测后决定减肥而未拆封，包装完整
+            价格：￥70
+            分类：食品医药-食品-零食
+            联系方式：微信wxid_thfxigbk2938
+        </p>
+        <div class="slide_img">
+            <img src="/img/home/Indexp5.jpg" style="width: 300px;height: 300px"/>
+        </div>
+    </div>
+
+    <div class="left_border">
+        <span class="left_turn"></span>
+    </div>
+    <div class="right_border">
+        <span class="right_turn"></span>
+    </div>
+</div>
+
+
+<div class="my_slider_right">
+    <div>
+        <h2>最新求购信息：</h2>
+    </div>
+    <div class="lists_div">
+        <div class="list_div">
+            <a class="a_header" href="/require_mall.do">苹果6s</a>
+            <p> 数量：3   求购价：￥20.00   类别：数码电器-手机-整机</p>
+        </div>
+        <div class="list_div">
+            <a class="a_header" href="/require_mall.do">《龙族VI》</a>
+            <p> 数量：1   求购价：￥30.00   类别：教育-图书-畅销文学</p>
+        </div>
+        <div class="list_div">
+            <a class="a_header" href="/require_mall.do">《数学分析（上）》</a>
+            <p> 数量：2   求购价：￥40.00   类别：教育-图书-教材教辅</p>
+        </div>
+        <div class="list_div">
+            <a class="a_header" href="/require_mall.do">《数学分析（下）》</a>
+            <p> 数量：2   求购价：￥40.00   类别：教育-图书-教材教辅</p>
+        </div>
+        <div class="list_div">
+            <a class="a_header" href="/require_mall.do">《模拟电子学基础》</a>
+            <p> 数量：1   求购价：￥50.00   类别：教育-图书-教材教辅</p>
+        </div>
+        <div class="list_div">
+            <a class="a_header" href="/require_mall.do">《龙族VI》</a>
+            <p> 数量：1   求购价：￥30.00   类别：教育-图书-畅销文学</p>
+        </div>
+        <div class="list_div">
+            <a class="a_header" href="/require_mall.do">《数学分析（上）》</a>
+            <p> 数量：2   求购价：￥40.00   类别：教育-图书-教材教辅</p>
+        </div>
+        <div class="list_div">
+            <a class="a_header" href="/require_mall.do">《数学分析（下）》</a>
+            <p> 数量：2   求购价：￥40.00   类别：教育-图书-教材教辅</p>
+        </div>
+        <div class="list_div">
+            <a class="a_header" href="/require_mall.do">《模拟电子学基础》</a>
+            <p> 数量：1   求购价：￥50.00   类别：教育-图书-教材教辅</p>
+        </div>
+        <!-- <div class="list_div" id="1" th:each="o:${list}">
+            <p th:text="'  名称：'+${o.name}+'   数量：'+${o.quantity}+'   求购价：￥'+${o.price}">Test</p>
+        </div> -->
+    </div>
+</div>
+
+
+<div class="featured_products">
+    <h2>最新商品</h2>
+    <figure class="product" th:each="o:${shopInformationBean}">
+        <div class="product_img_div">
+            <img src="/img/home/feature_prodects/cont1.jpg" class="show_img" th:src="${o.image}"/>
+        </div>
+        <p class="show_tip" th:text="${o.remark}"></p>
+        <input class="product_id" type="hidden" th:value="${o.id}"/>
+        <a class="product_name" th:href="'/selectById.do?id='+${o.id}" th:text="${o.name}" th:title="${o.name}">wsk1103</a><br/>
+        <!--<span class="product_name" th:text="${o.name}" th:value="${o.id}">Big block Lether Bag</span><br/>-->
+        <span class="product_cost" th:text="'￥'+${o.price}+'元'">$350.00</span><br/><br/>
+        <span class="buy product_1" th:value="${o.id}">加入购物车</span>
+    </figure>
+    <!--<div class="product">-->
+        <!--<img src="img/home/feature_prodects/cont2.jpg" width="100%"/>-->
+        <!--<span class="product_name">Big block Lether Bag</span>-->
+        <!--<span class="product_cost">$350.00</span><br/><br/>-->
+        <!--<span class="buy product_2">Buy</span>-->
+    <!--</div>-->
+    <!--<div class="product">-->
+        <!--<img src="img/home/feature_prodects/cont4.jpg" width="100%"/>-->
+        <!--<span class="product_name">Big block Lether Bag</span>-->
+        <!--<span class="product_cost">$350.00</span><br/><br/>-->
+        <!--<span class="buy product_3">Buy</span>-->
+    <!--</div>-->
+    <!--<div class="product">-->
+        <!--<img src="img/home/feature_prodects/cont4.jpg" width="100%"/>-->
+        <!--<span class="product_name">Big block Lether Bag<br/></span>-->
+        <!--<span class="product_cost">$350.00</span><br/><br/>-->
+        <!--<span class="buy product_4">Buy</span>-->
+    <!--</div>-->
+    <!--<div class="product">-->
+        <!--<img src="img/home/feature_prodects/cont1.jpg" width="100%"/>-->
+        <!--<span class="product_name">Big block Lether Bag</span>-->
+        <!--<span class="product_cost">$350.00</span><br/><br/>-->
+        <!--<span class="buy product_5">Buy</span>-->
+    <!--</div>-->
+</div>
+<div class="home_page_info">
+    <div class="bottom_info">
+        <h2>
+            关于我们
+        </h2>
+        <p>
+            该网站成立于2020年，是一个复旦大学校内二手交易网站。
+        </p>
+    </div>
+    <div class="bottom_info">
+        <h2>
+            团队信息
+        </h2>
+        <p>该网站由FduExchange小组合作完成。
+        </p>
+    </div>
+    <div class="bottom_info">
+        <h2>
+            版权声明
+        </h2>
+        <p>访问者可将本网站提供的内容或服务用于个人学习、研究或欣赏，以及其他非商业性或盈利性用途，但同时应遵守著作权法及其他相关法律的规定，不得侵犯本网站及相关权利人的合法权利。
+            除此以外，将本网站任何内容或服务用于其他用途时，须征得本网站及相关权利人的书面许可，并支付报酬
+        </p>
+    </div>
+</div>
+<footer>
+    <p>Fudan Exchange<a href="/"></a></p>
+</footer>
+</body>
+</html>
