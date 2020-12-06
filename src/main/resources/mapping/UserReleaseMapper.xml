@@ -16,6 +16,11 @@
   <sql id="all" >
     id, modified, display, uid, sid
   </sql>
+
+  <sql id="uid" >
+    uid
+  </sql>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="all" />
@@ -109,4 +114,10 @@
       sid = #{sid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectSellerIdByGoodsId" resultType="java.lang.Integer">
+    select
+    <include refid="uid" />
+    from <include refid="table"/>
+    where sid = #{sid, jdbcType=INTEGER}
+  </select>
 </mapper>
