@@ -325,3 +325,21 @@ CREATE TABLE `UserWant` (
 `uid` int(11) NOT NULL,
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `Order`;
+CREATE TABLE `OrderTable` (
+`order_id` int(11) NOT NULL AUTO_INCREMENT,
+`modified` datetime DEFAULT NULL,
+`seller_id` int(11) NOT NULL,
+`purchaser_id` int(11) NOT NULL,
+`sales_id` int(11) NOT NULL,
+`sales_name` varchar(50) NOT NULL,
+`quantity` int(11) NOT NULL,
+`price` decimal(10,2) NOT NULL,
+`purchaser_name` varchar(50) NOT NULL,
+`address` varchar(255) NOT NULL,
+`contact_info` varchar(255) NOT NULL,
+`state` tinyint(1) NOT NULL DEFAULT '0',
+PRIMARY KEY (`order_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10001 DEFAULT CHARSET=utf8;
