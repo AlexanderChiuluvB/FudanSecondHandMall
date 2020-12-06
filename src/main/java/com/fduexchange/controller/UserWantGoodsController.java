@@ -44,6 +44,8 @@ public class UserWantGoodsController {
     private UserReleaseService userReleaseService;
     @Resource
     private UserWantService userWantService;
+    @Resource
+    private OrderTableService orderTableSerive;
 
     @RequestMapping(value = "/insert_order.do")
     public String InsertOrder(HttpServletRequest request, Model model,
@@ -81,8 +83,7 @@ public class UserWantGoodsController {
             allSalesService.updateByPrimaryKey(allSales);
 
             //插入订单表
-            Order order = new Order();
-            order.setOrder_id(rand.nextInt((int) 1e8));
+            OrderTable order = new OrderTable();
             order.setSeller_id(sellerId);
             order.setSales_id(salesId);
             order.setPurchaser_id(purchaserId);
@@ -92,8 +93,8 @@ public class UserWantGoodsController {
             order.setPrice(new BigDecimal(price));
             order.setQuantity(quantity);
             order.setSales_name(name);
-            order.setState(true);
-            //int insertOrderResult = orderSerivce.insert(order);
+            order.setState(1);
+            orderTableSerive.insert(order);
 
             // 更新购物车
             ShoppingCart shoppingCart = new ShoppingCart();
@@ -105,6 +106,17 @@ public class UserWantGoodsController {
             shoppingCart.setUid(purchaserId);
             shoppingCartService.updateByPrimaryKeySelective(shoppingCart);
         }
+        return "page/shopping_cart";
+    }
+
+    //确认收货
+    @RequestMapping(value = "/modify_order.do")
+    public String modifyOrderStatus(HttpServletRequest request, Model model,
+                                    @RequestParam int orderId) {
+        OrderTable order = new OrderTable();
+        order.setState(0);
+        order.setOrder_id(orderId);
+        orderTableSerive.updateState(order);
         return "page/shopping_cart";
     }
 

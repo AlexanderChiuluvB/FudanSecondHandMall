@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class Order implements Serializable {
+public class OrderTable implements Serializable {
     private Integer order_id;
 
     private Date modified;
@@ -27,7 +27,7 @@ public class Order implements Serializable {
 
     private String contact_info;
 
-    private Boolean state;
+    private Integer state;
 
     public Integer getOrder_id() {
         return order_id;
@@ -117,11 +117,11 @@ public class Order implements Serializable {
         this.contact_info = contact_info;
     }
 
-    public Boolean getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(Boolean state) {
+    public void setState(Integer state) {
         this.state = state;
     }
 
