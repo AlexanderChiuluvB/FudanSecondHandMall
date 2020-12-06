@@ -1,6 +1,7 @@
 package com.fduexchange.controller;
 
 import com.fduexchange.bean.GoodsCarBean;
+import com.fduexchange.bean.OrderListBean;
 import com.fduexchange.bean.ShopInformationBean;
 import com.fduexchange.bean.UserWantBean;
 import com.fduexchange.pojo.*;
@@ -44,6 +45,8 @@ public class UserWantGoodsController {
     private UserReleaseService userReleaseService;
     @Resource
     private UserWantService userWantService;
+    @Resource
+    private OrderService orderService;
 
     @RequestMapping(value = "/insert_order.do")
     public String InsertOrder(HttpServletRequest request, Model model,
@@ -320,7 +323,7 @@ public class UserWantGoodsController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/my_order_list.do")
+    @RequestMapping(value = "/order_list.do")
     public String getOrderList(HttpServletRequest request, Model model) {
         UserInformation userInformation = (UserInformation) request.getSession().getAttribute("userInformation");
         if (StringUtils.getInstance().isNullOrEmpty(userInformation)) {
@@ -331,8 +334,24 @@ public class UserWantGoodsController {
             model.addAttribute("userInformation", userInformation);
         }
         int uid=userInformation.getId();
+        //根据id获取订单列表，合并为一个
+        List<Order> orderLists = orderService.selectByPurchaserId(uid);
+        orderLists.addAll(orderService.selectBySellerId(uid));
 
-
+        List<OrderListBean> orderListBeans = new ArrayList<>();
+        for (Order order:orderLists) {
+            OrderListBean orderListBean = new OrderListBean();
+            orderListBean.setOrder_id(order.getOrder_id());
+            orderListBean.setState(order.getState());
+            orderListBean.setSales_name(order.getSales_name());
+            orderListBean.setAddress(order.getAddress());
+            orderListBean.setPrice(order.getPrice());
+            orderListBean.setQuantity(order.getQuantity());
+            orderListBean.setContact_info(order.getContact_info());
+            orderListBeans.add(orderListBean);
+        }
+        model.addAttribute("order", orderListBeans);
+        return "page/myOrederList";
     }
 
     /***
