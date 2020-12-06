@@ -45,6 +45,68 @@ public class UserWantGoodsController {
     @Resource
     private UserWantService userWantService;
 
+    @RequestMapping(value = "/insert_order.do")
+    public String InsertOrder(HttpServletRequest request, Model model,
+                              @RequestParam double price,
+                              @RequestParam String address,
+                              @RequestParam String contactInfo,
+                              @RequestParam String name,
+                              @RequestParam int salesId,
+                              @RequestParam int shoppingCarId,
+                              @RequestParam int quantity) {
+        Random rand = new Random();
+        UserInformation userInformation = (UserInformation) request.getSession().getAttribute("userInformation");
+        if (StringUtils.getInstance().isNullOrEmpty(userInformation)) {
+            return "redirect:/login.do";
+        }
+        String error = request.getParameter("error");
+        if (!StringUtils.getInstance().isNullOrEmpty(error)) {
+            model.addAttribute("error", "error");
+        }
+        int purchaserId = userInformation.getId();
+        int sellerId = userReleaseService.selectSellerIdByGoodsId(salesId);
+
+        List<AllSales> salesList = allSalesService.selectByName(name);
+        int originQuantity = salesList.get(0).getQuantity();
+
+        if (originQuantity >= quantity) {
+
+            //减库存
+            AllSales allSales = new AllSales();
+            allSales.setId(salesId);
+            allSales.setQuantity(originQuantity-quantity);
+            if (originQuantity == quantity) {
+                allSales.setDisplay(0);
+            }
+            allSalesService.updateByPrimaryKey(allSales);
+
+            //插入订单表
+            Order order = new Order();
+            order.setOrder_id(rand.nextInt((int) 1e8));
+            order.setSeller_id(sellerId);
+            order.setSales_id(salesId);
+            order.setPurchaser_id(purchaserId);
+            order.setAddress(address);
+            order.setContact_info(contactInfo);
+            order.setModified(new Date());
+            order.setPrice(new BigDecimal(price));
+            order.setQuantity(quantity);
+            order.setSales_name(name);
+            order.setState(true);
+            //int insertOrderResult = orderSerivce.insert(order);
+
+            // 更新购物车
+            ShoppingCart shoppingCart = new ShoppingCart();
+            if (originQuantity == quantity) {
+                shoppingCart.setDisplay(0);
+            }
+            shoppingCart.setSid(shoppingCarId);
+            shoppingCart.setSid(salesId);
+            shoppingCart.setUid(purchaserId);
+            shoppingCartService.updateByPrimaryKeySelective(shoppingCart);
+        }
+        return "page/shopping_cart";
+    }
 
     //进入求购页面
     @RequestMapping(value = "/require_product.do")
