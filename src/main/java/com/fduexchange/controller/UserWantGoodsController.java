@@ -253,6 +253,27 @@ public class UserWantGoodsController {
     }
 
     /***
+     * 查看订单列表功能
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/my_order_list.do")
+    public String getOrderList(HttpServletRequest request, Model model) {
+        UserInformation userInformation = (UserInformation) request.getSession().getAttribute("userInformation");
+        if (StringUtils.getInstance().isNullOrEmpty(userInformation)) {
+            userInformation = new UserInformation();
+            model.addAttribute("userInformation", userInformation);
+            return "redirect:/login.do";
+        } else {
+            model.addAttribute("userInformation", userInformation);
+        }
+        int uid=userInformation.getId();
+
+
+    }
+
+    /***
      * 添加商品到购物车
      * @param request
      * @param id
