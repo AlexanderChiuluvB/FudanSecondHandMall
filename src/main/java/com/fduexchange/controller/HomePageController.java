@@ -1,6 +1,7 @@
 package com.fduexchange.controller;
 
 import com.fduexchange.bean.ShopInformationBean;
+import com.fduexchange.bean.UserWantBean;
 import com.fduexchange.pojo.*;
 import com.fduexchange.service.*;
 import com.fduexchange.utils.StringUtils;
@@ -31,6 +32,8 @@ public class HomePageController {
     private FirstClassService firstClassService;
     @Resource
     private ShopMessageService shopMessageService;
+    @Resource
+    private UserWantService userWantService;
 
     /***
      * 登录首页
@@ -69,6 +72,23 @@ public class HomePageController {
                 list.add(shopInformationBean);
             }
             model.addAttribute("shopInformationBean", list);
+
+            List<UserWant> userwants = userWantService.selectAll();
+            List<UserWantBean> list2 = new ArrayList<>();
+            for (UserWant userWant : userwants) {
+                UserWantBean u = new UserWantBean();
+                u.setSort(getSort(userWant.getSort()));
+                u.setRemark(userWant.getRemark());
+                u.setQuantity(userWant.getQuantity());
+                u.setPrice(userWant.getPrice().doubleValue());
+                u.setUid(userWant.getUid());
+                u.setId(userWant.getId());
+                u.setModified(userWant.getModified());
+                u.setName(userWant.getName());
+                list2.add(u);
+            }
+            model.addAttribute("list", list2);
+
         } catch (Exception e) {
             e.printStackTrace();
             return "page/login_page";
@@ -231,6 +251,22 @@ public class HomePageController {
     //获得商品总页数
     private int getShopCounts() {
         return allSalesService.getCounts();
+    }
+
+    private String getSort(int sort) {
+        StringBuilder sb = new StringBuilder();
+        ThirdClass thirdClass = selectThirdClassBySort(sort);
+        int cid = thirdClass.getCid();
+        SecondClass secondClass = selectSecondClassByCid(cid);
+        int aid = secondClass.getAid();
+        FirstClass firstClass = selectFirstClassByAid(aid);
+        String allName = firstClass.getName();
+        sb.append(allName);
+        sb.append("-");
+        sb.append(secondClass.getName());
+        sb.append("-");
+        sb.append(thirdClass.getName());
+        return sb.toString();
     }
 
 }
