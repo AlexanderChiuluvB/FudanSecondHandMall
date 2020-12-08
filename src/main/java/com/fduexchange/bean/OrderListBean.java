@@ -6,27 +6,16 @@ import java.util.Date;
 
 public class OrderListBean implements Serializable{
     private Integer order_id;
-
     private Date modified;
-
     private Integer seller_id;
-
     private Integer purchaser_id;
-
     private Integer sales_id;
-
     private String sales_name;
-
     private Integer quantity;
-
     private BigDecimal price;
-
     private String purchaser_name;
-
     private String address;
-
     private String contact_info;
-
     private Integer state;
 
     public Integer getOrder_id() {

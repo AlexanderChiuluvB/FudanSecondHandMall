@@ -344,24 +344,37 @@ public class UserWantGoodsController {
             model.addAttribute("userInformation", userInformation);
         }
         int uid=userInformation.getId();
-        //根据id获取订单列表，合并为一个
-        List<OrderTable> orderLists = orderTableService.selectByPurchaserId(uid);
-        orderLists.addAll(orderTableService.selectBySellerId(uid));
+        //根据id分别获取订单列表
+        List<OrderTable> orderLists_purchaser = orderTableService.selectByPurchaserId(uid);
+        List<OrderTable> orderLists_seller = orderTableService.selectBySellerId(uid);
 
-        List<OrderListBean> orderListBeans = new ArrayList<>();
-        for (OrderTable order:orderLists) {
-            OrderListBean orderListBean = new OrderListBean();
-            orderListBean.setOrder_id(order.getOrder_id());
-            orderListBean.setState(order.getState());
-            orderListBean.setSales_name(order.getSales_name());
-            orderListBean.setAddress(order.getAddress());
-            orderListBean.setPrice(order.getPrice());
-            orderListBean.setQuantity(order.getQuantity());
-            orderListBean.setContact_info(order.getContact_info());
-            orderListBeans.add(orderListBean);
+        List<OrderListBean> orderListBeans_pur = new ArrayList<>();
+        for (OrderTable order:orderLists_purchaser) {
+            OrderListBean orderListBean_pur = new OrderListBean();
+            orderListBean_pur.setOrder_id(order.getOrder_id());
+            orderListBean_pur.setState(order.getState());
+            orderListBean_pur.setSales_name(order.getSales_name());
+            orderListBean_pur.setAddress(order.getAddress());
+            orderListBean_pur.setPrice(order.getPrice());
+            orderListBean_pur.setQuantity(order.getQuantity());
+            orderListBean_pur.setContact_info(order.getContact_info());
+            orderListBeans_pur.add(orderListBean_pur);
         }
-        model.addAttribute("order", orderListBeans);
-        return "page/myOrederList";
+        List<OrderListBean> orderListBeans_sel = new ArrayList<>();
+        for (OrderTable order:orderLists_seller) {
+            OrderListBean orderListBean_sel = new OrderListBean();
+            orderListBean_sel.setOrder_id(order.getOrder_id());
+            orderListBean_sel.setState(order.getState());
+            orderListBean_sel.setSales_name(order.getSales_name());
+            orderListBean_sel.setAddress(order.getAddress());
+            orderListBean_sel.setPrice(order.getPrice());
+            orderListBean_sel.setQuantity(order.getQuantity());
+            orderListBean_sel.setContact_info(order.getContact_info());
+            orderListBeans_sel.add(orderListBean_sel);
+        }
+        model.addAttribute("order_pur", orderListBeans_pur);
+        model.addAttribute("order_sel", orderListBeans_sel);
+        return "page/myOrderList";
     }
 
     /***

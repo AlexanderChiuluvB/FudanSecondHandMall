@@ -105,7 +105,7 @@
         <h2>最新求购信息：</h2>
     </div>
     <div class="lists_div">
-        <div class="list_div">
+        <!--<div class="list_div">
             <a class="a_header" href="/require_mall.do">苹果6s</a>
             <p> 数量：3   求购价：￥20.00   类别：数码电器-手机-整机</p>
         </div>
@@ -140,6 +140,10 @@
         <div class="list_div">
             <a class="a_header" href="/require_mall.do">《模拟电子学基础》</a>
             <p> 数量：1   求购价：￥50.00   类别：教育-图书-教材教辅</p>
+        </div>-->
+        <div class="list_div" th:each="o:${list}">
+            <a class="a_header" href="/require_mall.do" th:text="${o.name}">Test</a>
+            <p th:text="'   数量：'+${o.quantity}+'   求购价：￥'+${o.price}+'   分类'+${o.sort}">Test</p>
         </div>
         <!-- <div class="list_div" id="1" th:each="o:${list}">
             <p th:text="'  名称：'+${o.name}+'   数量：'+${o.quantity}+'   求购价：￥'+${o.price}">Test</p>
