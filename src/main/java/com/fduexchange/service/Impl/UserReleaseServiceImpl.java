@@ -58,4 +58,9 @@ public class UserReleaseServiceImpl implements UserReleaseService {
     public List<UserRelease> selectUserProductByUid(int uid) {
         return userReleaseMapper.selectUserProductByUid(uid);
     }
+
+    @Override
+    public int selectSellerIdByGoodsId(int sid) {
+        return userReleaseMapper.selectSellerIdByGoodsId(sid);
+    }
 }
