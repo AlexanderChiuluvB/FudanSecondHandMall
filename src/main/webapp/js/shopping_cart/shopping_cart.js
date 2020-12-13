@@ -99,4 +99,60 @@ $(function () {
             })
         }
     })
+    $('.pay_button').click(function () {
+//        @RequestParam double price,
+//        @RequestParam String address,
+//        @RequestParam String contactInfo,
+//        @RequestParam String name,
+//        @RequestParam int salesId,
+//        @RequestParam int shoppingCarId,
+//        @RequestParam int quantity
+        var r = confirm('确定结算该商品吗？');
+        if (r == true) {
+            var id = $(this).attr('value');
+            var name = $(this).closest("tr").find("td:eq(1)").text();
+            var price = $(this).closest("tr").find("td:eq(2)").text();
+            var quantity = $(this).closest("tr").find("td:eq(3)").find("span:eq(1)").text();
+            var salesId = $(this).parent().siblings(".show_img").children().attr("value");
+            //alert(name+" "+price+" "+quantity+" "+salesId);
+            $.ajax({
+                url:'/insert_order.do',
+                dataType:'JSON',
+                type:'post',
+                data:{price:price,address:"TestAddress",contactInfo:"TestContactInfo",name:name,salesId:salesId,shoppingCarId:1,quantity:quantity},
+                success:function (data) {
+                    var result = data.result;
+                    if (result==2){
+                        alert('您还没有登录，请先登录');
+                    }  else if (result==1) {
+                        alert("结算成功");
+                        window.location.href='shopping_cart.do?result=结算成功';
+                    } else if (result==0){
+                        alert('结算失败，请检测网络');
+                    } else {
+                        alert('结算失败，请检测网络');
+                    }
+                }
+            })
+            /* $.ajax({
+                url:'deleteGoodsCar.do',
+                dataType:'JSON',
+                type:'post',
+                data:{id:id,sid:salesId},
+                success:function (data) {
+                    var result = data.result;
+                    if (result==2){
+                        alert('您还没有登录，请先登录');
+                    }  else if (result==1) {
+                        alert("删除成功");
+                        window.location.href='shopping_cart.do?result=删除成功';
+                    } else if (result==0){
+                        alert('删除失败，请检测网络');
+                    } else {
+                        alert('删除失败，请检测网络');
+                    }
+                }
+            }) */
+        }
+    })
 });
