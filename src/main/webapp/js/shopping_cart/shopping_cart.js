@@ -116,7 +116,7 @@ $(function () {
             var salesId = $(this).parent().siblings(".show_img").children().attr("value");
             //alert(name+" "+price+" "+quantity+" "+salesId);
             $.ajax({
-                url:'/insert_order.do',
+                url:'insert_order.do',
                 dataType:'JSON',
                 type:'post',
                 data:{price:price,address:"TestAddress",contactInfo:"TestContactInfo",name:name,salesId:salesId,shoppingCarId:1,quantity:quantity},

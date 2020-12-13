@@ -83,7 +83,7 @@
       #{level,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL},
       #{sort,jdbcType=INTEGER}, #{display,jdbcType=INTEGER}, #{quantity,jdbcType=INTEGER},
       #{transaction,jdbcType=INTEGER}, #{sales,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER},
-      #{image,jdbcType=VARCHAR}),#{thumbnails,jdbcType=VARCHAR}
+      #{image,jdbcType=VARCHAR},#{thumbnails,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.fduexchange.pojo.AllSales" >
     insert into <include refid="table"/>
