@@ -50,7 +50,7 @@ public class UserWantGoodsController {
 
     @RequestMapping(value = "/insert_order.do")
     public String InsertOrder(HttpServletRequest request, Model model,
-                              @RequestParam double price,
+                              @RequestParam String price,
                               @RequestParam String address,
                               @RequestParam String contactInfo,
                               @RequestParam String name,
@@ -91,7 +91,8 @@ public class UserWantGoodsController {
             order.setAddress(address);
             order.setContact_info(contactInfo);
             order.setModified(new Date());
-            order.setPrice(new BigDecimal(price));
+            //TODO
+            order.setPrice(new BigDecimal("100.0"));
             order.setQuantity(quantity);
             order.setSales_name(name);
             order.setState(1);
@@ -408,7 +409,7 @@ public class UserWantGoodsController {
      * @param sid
      * @return
      */
-    @RequestMapping(value = "/deleteShopCar.do")
+    @RequestMapping(value = "/deleteGoodsCar.do")
     @ResponseBody
     public BaseResponse deleteShopCar(HttpServletRequest request, @RequestParam int id, @RequestParam int sid) {
         UserInformation userInformation = (UserInformation) request.getSession().getAttribute("userInformation");
