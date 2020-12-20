@@ -129,9 +129,9 @@ $(function () {
                         alert("结算成功");
                         window.location.href='shopping_cart.do?result=结算成功';
                     } else if (result==0){
-                        alert('结算失败，请检测网络');
+                        alert('结算失败，请检测网络，或者商品已经被买走啦');
                     } else {
-                        alert('结算失败，请检测网络');
+                        alert('结算失败，请检测网络，或者商品已经被买走啦');
                     }
                 }
             })
