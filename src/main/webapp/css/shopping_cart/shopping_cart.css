@@ -161,6 +161,16 @@ table {
     color: white;
     border-radius: 5px;
 }
+
+.confirm_goods_button {
+    width: 70%;
+    background-color: #3f51b5;
+    height: 45px;
+    border: none;
+    font-size: 1.1em;
+    color: white;
+    border-radius: 5px;
+}
 .pay_button:hover {
     cursor: pointer;
 }

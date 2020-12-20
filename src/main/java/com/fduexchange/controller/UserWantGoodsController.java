@@ -130,13 +130,13 @@ public class UserWantGoodsController {
 
     //确认收货
     @RequestMapping(value = "/modify_order.do")
-    public String modifyOrderStatus(HttpServletRequest request, Model model,
+    public BaseResponse modifyOrderStatus(HttpServletRequest request, Model model,
                                     @RequestParam int orderId) {
         OrderTable order = new OrderTable();
         order.setState(0);
         order.setOrder_id(orderId);
         orderTableService.updateState(order);
-        return "page/shopping_cart";
+        return BaseResponse.success();
     }
 
     //进入求购页面
