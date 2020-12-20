@@ -109,10 +109,10 @@
     </trim>
   </insert>
 
-  <update id="updateState" parameterType="com.fduexchange.pojo.OrderTable" >
+  <update id="updateState" parameterType="java.lang.Integer" >
     update
     <include refid="table"/>
-    set state = #{order_state,jdbcType=INTEGER},
+    set state = 0
     where order_id = #{order_id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -15,5 +15,5 @@ public interface OrderTableService {
 
     List<OrderTable> selectByPurchaserId(int purchaser_id);
 
-    int updateState(OrderTable record);
+    int updateState(int order_id);
 }

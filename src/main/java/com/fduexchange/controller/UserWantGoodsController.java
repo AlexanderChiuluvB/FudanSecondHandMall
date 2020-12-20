@@ -96,10 +96,6 @@ public class UserWantGoodsController {
             order.setPurchaser_id(purchaserId);
             order.setAddress(address);
             order.setContact_info(contactInfo);
-            Date date = new Date();
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            date = format.parse(format.format(date));
-            //order.setModified(date);
             order.setPrice(new BigDecimal(100));
             order.setQuantity(quantity);
             order.setSales_name(name);
@@ -132,10 +128,7 @@ public class UserWantGoodsController {
     @RequestMapping(value = "/modify_order.do")
     public BaseResponse modifyOrderStatus(HttpServletRequest request, Model model,
                                     @RequestParam int orderId) {
-        OrderTable order = new OrderTable();
-        order.setState(0);
-        order.setOrder_id(orderId);
-        orderTableService.updateState(order);
+        orderTableService.updateState(orderId);
         return BaseResponse.success();
     }
 

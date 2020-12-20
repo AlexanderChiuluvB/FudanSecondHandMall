@@ -36,8 +36,8 @@ public class OrderTableServiceImpl implements OrderTableService {
     }
 
     @Override
-    public int updateState(OrderTable record) {
-        return OrderTableMapper.updateState(record);
+    public int updateState(int order_id) {
+        return OrderTableMapper.updateState(order_id);
     }
 
 }
