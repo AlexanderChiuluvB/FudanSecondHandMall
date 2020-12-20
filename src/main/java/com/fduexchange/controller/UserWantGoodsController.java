@@ -1,5 +1,6 @@
 package com.fduexchange.controller;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
 import com.fduexchange.bean.GoodsCarBean;
 import com.fduexchange.bean.OrderListBean;
 import com.fduexchange.bean.ShopInformationBean;
@@ -49,8 +50,9 @@ public class UserWantGoodsController {
     private OrderTableService orderTableService;
 
     @RequestMapping(value = "/insert_order.do")
-    public String InsertOrder(HttpServletRequest request, Model model,
-                              @RequestParam double price,
+    @ResponseBody
+    public BaseResponse InsertOrder(HttpServletRequest request, Model model,
+                              @RequestParam String price,
                               @RequestParam String address,
                               @RequestParam String contactInfo,
                               @RequestParam String name,
@@ -60,8 +62,9 @@ public class UserWantGoodsController {
         Random rand = new Random();
         UserInformation userInformation = (UserInformation) request.getSession().getAttribute("userInformation");
         if (StringUtils.getInstance().isNullOrEmpty(userInformation)) {
-            return "redirect:/login.do";
+            return BaseResponse.fail();
         }
+        model.addAttribute("userInformation", userInformation);
         String error = request.getParameter("error");
         if (!StringUtils.getInstance().isNullOrEmpty(error)) {
             model.addAttribute("error", "error");
@@ -81,21 +84,29 @@ public class UserWantGoodsController {
             if (originQuantity == quantity) {
                 allSales.setDisplay(0);
             }
-            allSalesService.updateByPrimaryKey(allSales);
+            allSalesService.updateByPrimaryKeySelective(allSales);
 
             //插入订单表
             OrderTable order = new OrderTable();
+            order.setOrder_id(rand.nextInt(100000));
             order.setSeller_id(sellerId);
             order.setSales_id(salesId);
             order.setPurchaser_id(purchaserId);
             order.setAddress(address);
             order.setContact_info(contactInfo);
-            order.setModified(new Date());
-            order.setPrice(new BigDecimal(price));
+            //TODO
+            order.setPrice(new BigDecimal(100));
             order.setQuantity(quantity);
             order.setSales_name(name);
             order.setState(1);
-            orderTableService.insert(order);
+            order.setPurchaser_name("test_name");
+            System.out.println(order.toString());
+            int insertResult = orderTableService.insert(order);
+            if (insertResult !=1) {
+                System.out.println("插入订单表失败");
+            } else {
+                System.out.println("插入订单表success");
+            }
 
             // 更新购物车
             ShoppingCart shoppingCart = new ShoppingCart();
@@ -106,8 +117,10 @@ public class UserWantGoodsController {
             shoppingCart.setSid(salesId);
             shoppingCart.setUid(purchaserId);
             shoppingCartService.updateByPrimaryKeySelective(shoppingCart);
+        } else {
+            return BaseResponse.fail();
         }
-        return "page/shopping_cart";
+        return BaseResponse.success();
     }
 
     //确认收货
@@ -408,7 +421,7 @@ public class UserWantGoodsController {
      * @param sid
      * @return
      */
-    @RequestMapping(value = "/deleteShopCar.do")
+    @RequestMapping(value = "/deleteGoodsCar.do")
     @ResponseBody
     public BaseResponse deleteShopCar(HttpServletRequest request, @RequestParam int id, @RequestParam int sid) {
         UserInformation userInformation = (UserInformation) request.getSession().getAttribute("userInformation");

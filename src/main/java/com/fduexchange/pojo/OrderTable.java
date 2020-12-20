@@ -13,6 +13,24 @@ public class OrderTable implements Serializable {
 
     private Integer purchaser_id;
 
+    @Override
+    public String toString() {
+        return "OrderTable{" +
+                "order_id=" + order_id +
+                ", modified=" + modified +
+                ", seller_id=" + seller_id +
+                ", purchaser_id=" + purchaser_id +
+                ", sales_id=" + sales_id +
+                ", sales_name='" + sales_name + '\'' +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                ", purchaser_name='" + purchaser_name + '\'' +
+                ", address='" + address + '\'' +
+                ", contact_info='" + contact_info + '\'' +
+                ", order_state=" + order_state +
+                '}';
+    }
+
     private Integer sales_id;
 
     private String sales_name;
@@ -27,7 +45,7 @@ public class OrderTable implements Serializable {
 
     private String contact_info;
 
-    private Integer state;
+    private Integer order_state;
 
     public Integer getOrder_id() {
         return order_id;
@@ -118,11 +136,11 @@ public class OrderTable implements Serializable {
     }
 
     public Integer getState() {
-        return state;
+        return order_state;
     }
 
     public void setState(Integer state) {
-        this.state = state;
+        this.order_state = state;
     }
 
 
