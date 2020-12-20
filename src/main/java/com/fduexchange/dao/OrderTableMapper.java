@@ -17,4 +17,6 @@ public interface OrderTableMapper {
     List<OrderTable> selectByPurchaserId(int purchaser_id);
 
     int updateState(OrderTable record);
+
+    int insertSelective(OrderTable record);
 }

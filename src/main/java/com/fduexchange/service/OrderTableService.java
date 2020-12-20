@@ -6,6 +6,9 @@ import java.util.List;
 
 
 public interface OrderTableService {
+
+    int insertSelective(OrderTable record);
+
     int insert(OrderTable record);
 
     List<OrderTable> selectBySellerId(int seller_id);

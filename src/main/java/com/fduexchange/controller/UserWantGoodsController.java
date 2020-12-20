@@ -23,6 +23,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -58,7 +60,7 @@ public class UserWantGoodsController {
                               @RequestParam String name,
                               @RequestParam int salesId,
                               @RequestParam int shoppingCarId,
-                              @RequestParam int quantity) {
+                              @RequestParam int quantity) throws ParseException {
         Random rand = new Random();
         UserInformation userInformation = (UserInformation) request.getSession().getAttribute("userInformation");
         if (StringUtils.getInstance().isNullOrEmpty(userInformation)) {
@@ -94,14 +96,17 @@ public class UserWantGoodsController {
             order.setPurchaser_id(purchaserId);
             order.setAddress(address);
             order.setContact_info(contactInfo);
-            //TODO
+            Date date = new Date();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            date = format.parse(format.format(date));
+            //order.setModified(date);
             order.setPrice(new BigDecimal(100));
             order.setQuantity(quantity);
             order.setSales_name(name);
             order.setState(1);
             order.setPurchaser_name("test_name");
             System.out.println(order.toString());
-            int insertResult = orderTableService.insert(order);
+            int insertResult = orderTableService.insertSelective(order);
             if (insertResult !=1) {
                 System.out.println("插入订单表失败");
             } else {
