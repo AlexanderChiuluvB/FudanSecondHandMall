@@ -7,7 +7,7 @@ import java.util.Date;
 public class OrderTable implements Serializable {
     private Integer order_id;
 
-    private Date modified;
+   // private Date modified;
 
     private Integer seller_id;
 
@@ -17,7 +17,6 @@ public class OrderTable implements Serializable {
     public String toString() {
         return "OrderTable{" +
                 "order_id=" + order_id +
-                ", modified=" + modified +
                 ", seller_id=" + seller_id +
                 ", purchaser_id=" + purchaser_id +
                 ", sales_id=" + sales_id +
@@ -27,7 +26,7 @@ public class OrderTable implements Serializable {
                 ", purchaser_name='" + purchaser_name + '\'' +
                 ", address='" + address + '\'' +
                 ", contact_info='" + contact_info + '\'' +
-                ", order_state=" + order_state +
+                ", state=" + state +
                 '}';
     }
 
@@ -45,7 +44,7 @@ public class OrderTable implements Serializable {
 
     private String contact_info;
 
-    private Integer order_state;
+    private Integer state;
 
     public Integer getOrder_id() {
         return order_id;
@@ -55,13 +54,13 @@ public class OrderTable implements Serializable {
         this.order_id = order_id;
     }
 
-    public Date getModified() {
-        return modified;
-    }
+    //public Date getModified() {
+      //  return modified;
+   // }
 
-    public void setModified(Date modified) {
-        this.modified = modified;
-    }
+    //public void setModified(Date modified) {
+    //    this.modified = modified;
+    //}
 
     public Integer getSeller_id() {
         return seller_id;
@@ -136,11 +135,11 @@ public class OrderTable implements Serializable {
     }
 
     public Integer getState() {
-        return order_state;
+        return state;
     }
 
     public void setState(Integer state) {
-        this.order_state = state;
+        this.state = state;
     }
 
 

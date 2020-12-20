@@ -16,6 +16,11 @@ public class OrderTableServiceImpl implements OrderTableService {
     private OrderTableMapper OrderTableMapper;
 
     @Override
+    public int insertSelective(OrderTable record) {
+        return OrderTableMapper.insertSelective(record);
+    }
+
+    @Override
     public int insert(OrderTable record) {
         return OrderTableMapper.insert(record);
     }
