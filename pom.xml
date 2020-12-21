@@ -185,6 +185,7 @@
             <artifactId>aspectjweaver</artifactId>
             <version>1.8.10</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
     </dependencies>
     <build>
         <finalName>ROOT</finalName>

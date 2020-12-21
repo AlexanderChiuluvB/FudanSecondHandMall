@@ -1,6 +1,5 @@
 package com.fduexchange.controller;
 
-import com.fasterxml.jackson.databind.ser.Serializers;
 import com.fduexchange.bean.GoodsCarBean;
 import com.fduexchange.bean.OrderListBean;
 import com.fduexchange.bean.ShopInformationBean;
@@ -24,7 +23,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.math.BigDecimal;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller

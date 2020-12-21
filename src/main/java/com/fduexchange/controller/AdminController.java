@@ -170,7 +170,8 @@ public class AdminController {
                              @RequestParam(required = false) String userName,
                              @RequestParam(required = false) String realName,
                              @RequestParam(required = false) String clazz,
-                             @RequestParam(required = false) String sno, @RequestParam(required = false) String dormitory,
+                             @RequestParam(required = false) String sno,
+                                              @RequestParam(required = false) String dormitory,
                              @RequestParam(required = false) String gender) {
         UserInformation userInformation = (UserInformation) request.getSession().getAttribute("userInformation");
         Map<String, Integer> map = new HashMap<>();

@@ -158,7 +158,7 @@ $(function () {
     })
     $('.confirm_goods_button').click(function () {
         var r = confirm('确认收货？');
-        if (r == true) {
+        if (r === true) {
             var id = $(this).attr('value');
             //alert(name+" "+price+" "+quantity+" "+salesId);
             $.ajax({
