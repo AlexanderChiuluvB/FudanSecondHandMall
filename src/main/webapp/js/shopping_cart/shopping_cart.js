@@ -132,26 +132,14 @@ $(function () {
                 dataType:'JSON',
                 type:'post',
                 data:{id:id,sid:sid},
-                success:function (data) {
-                    var result = data.result;
-                    if (result==2){
-                        alert('您还没有登录，请先登录');
-                    }  else if (result==1) {
-                        alert("删除成功");
-                        window.location.href='shopping_cart.do?result=删除成功';
-                    } else if (result==0){
-                        alert('删除失败，请检测网络');
-                    } else {
-                        alert('删除失败，请检测网络');
-                    }
-                }
-            })
+
         }
     })
     $('.confirm_goods_button').click(function () {
         var r = confirm('确认收货？');
         if (r === true) {
             var id = $(this).attr('value');
+
             $.ajax({
                 url:'modify_order.do',
                 dataType:'JSON',
