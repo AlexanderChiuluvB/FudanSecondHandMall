@@ -1,6 +1,7 @@
 package com.fduexchange.controller;
 
 import com.fduexchange.bean.GoodsCarBean;
+import com.fduexchange.bean.OrderListBean;
 import com.fduexchange.bean.ShopInformationBean;
 import com.fduexchange.bean.UserWantBean;
 import com.fduexchange.pojo.*;
@@ -21,6 +22,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.util.*;
 
 @Controller
@@ -44,7 +46,89 @@ public class UserWantGoodsController {
     private UserReleaseService userReleaseService;
     @Resource
     private UserWantService userWantService;
+    @Resource
+    private OrderTableService orderTableService;
 
+    @RequestMapping(value = "/insert_order.do")
+    @ResponseBody
+    public BaseResponse InsertOrder(HttpServletRequest request, Model model,
+                              @RequestParam String price,
+                              @RequestParam String address,
+                              @RequestParam String contactInfo,
+                              @RequestParam String name,
+                              @RequestParam int salesId,
+                              @RequestParam int shoppingCarId,
+                              @RequestParam int quantity) throws ParseException {
+        Random rand = new Random();
+        UserInformation userInformation = (UserInformation) request.getSession().getAttribute("userInformation");
+        if (StringUtils.getInstance().isNullOrEmpty(userInformation)) {
+            return BaseResponse.fail();
+        }
+        model.addAttribute("userInformation", userInformation);
+        String error = request.getParameter("error");
+        if (!StringUtils.getInstance().isNullOrEmpty(error)) {
+            model.addAttribute("error", "error");
+        }
+        int purchaserId = userInformation.getId();
+        int sellerId = userReleaseService.selectSellerIdByGoodsId(salesId);
+
+        List<AllSales> salesList = allSalesService.selectByName(name);
+        int originQuantity = salesList.get(0).getQuantity();
+
+        if (originQuantity >= quantity) {
+
+            //减库存
+            AllSales allSales = new AllSales();
+            allSales.setId(salesId);
+            allSales.setQuantity(originQuantity-quantity);
+            if (originQuantity == quantity) {
+                allSales.setDisplay(0);
+            }
+            allSalesService.updateByPrimaryKeySelective(allSales);
+
+            //插入订单表
+            OrderTable order = new OrderTable();
+            order.setOrder_id(rand.nextInt(100000));
+            order.setSeller_id(sellerId);
+            order.setSales_id(salesId);
+            order.setPurchaser_id(purchaserId);
+            order.setAddress(address);
+            order.setContact_info(contactInfo);
+            order.setPrice(new BigDecimal(100));
+            order.setQuantity(quantity);
+            order.setSales_name(name);
+            order.setState(1);
+            order.setPurchaser_name("test_name");
+            System.out.println(order.toString());
+            int insertResult = orderTableService.insertSelective(order);
+            if (insertResult !=1) {
+                System.out.println("插入订单表失败");
+            } else {
+                System.out.println("插入订单表success");
+            }
+
+            // 更新购物车
+            ShoppingCart shoppingCart = new ShoppingCart();
+            if (originQuantity == quantity) {
+                shoppingCart.setDisplay(0);
+            }
+            shoppingCart.setSid(shoppingCarId);
+            shoppingCart.setSid(salesId);
+            shoppingCart.setUid(purchaserId);
+            shoppingCartService.updateByPrimaryKeySelective(shoppingCart);
+        } else {
+            return BaseResponse.fail();
+        }
+        return BaseResponse.success();
+    }
+
+    //确认收货
+    @RequestMapping(value = "/modify_order.do")
+    public BaseResponse modifyOrderStatus(HttpServletRequest request, Model model,
+                                    @RequestParam int orderId) {
+        orderTableService.updateState(orderId);
+        return BaseResponse.success();
+    }
 
     //进入求购页面
     @RequestMapping(value = "/require_product.do")
@@ -253,6 +337,56 @@ public class UserWantGoodsController {
     }
 
     /***
+     * 查看订单列表功能
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/order_list.do")
+    public String getOrderList(HttpServletRequest request, Model model) {
+        UserInformation userInformation = (UserInformation) request.getSession().getAttribute("userInformation");
+        if (StringUtils.getInstance().isNullOrEmpty(userInformation)) {
+            userInformation = new UserInformation();
+            model.addAttribute("userInformation", userInformation);
+            return "redirect:/login.do";
+        } else {
+            model.addAttribute("userInformation", userInformation);
+        }
+        int uid=userInformation.getId();
+        //根据id分别获取订单列表
+        List<OrderTable> orderLists_purchaser = orderTableService.selectByPurchaserId(uid);
+        List<OrderTable> orderLists_seller = orderTableService.selectBySellerId(uid);
+
+        List<OrderListBean> orderListBeans_pur = new ArrayList<>();
+        for (OrderTable order:orderLists_purchaser) {
+            OrderListBean orderListBean_pur = new OrderListBean();
+            orderListBean_pur.setOrder_id(order.getOrder_id());
+            orderListBean_pur.setState(order.getState());
+            orderListBean_pur.setSales_name(order.getSales_name());
+            orderListBean_pur.setAddress(order.getAddress());
+            orderListBean_pur.setPrice(order.getPrice());
+            orderListBean_pur.setQuantity(order.getQuantity());
+            orderListBean_pur.setContact_info(order.getContact_info());
+            orderListBeans_pur.add(orderListBean_pur);
+        }
+        List<OrderListBean> orderListBeans_sel = new ArrayList<>();
+        for (OrderTable order:orderLists_seller) {
+            OrderListBean orderListBean_sel = new OrderListBean();
+            orderListBean_sel.setOrder_id(order.getOrder_id());
+            orderListBean_sel.setState(order.getState());
+            orderListBean_sel.setSales_name(order.getSales_name());
+            orderListBean_sel.setAddress(order.getAddress());
+            orderListBean_sel.setPrice(order.getPrice());
+            orderListBean_sel.setQuantity(order.getQuantity());
+            orderListBean_sel.setContact_info(order.getContact_info());
+            orderListBeans_sel.add(orderListBean_sel);
+        }
+        model.addAttribute("order_pur", orderListBeans_pur);
+        model.addAttribute("order_sel", orderListBeans_sel);
+        return "page/myOrderList";
+    }
+
+    /***
      * 添加商品到购物车
      * @param request
      * @param id
@@ -283,7 +417,7 @@ public class UserWantGoodsController {
      * @param sid
      * @return
      */
-    @RequestMapping(value = "/deleteShopCar.do")
+    @RequestMapping(value = "/deleteGoodsCar.do")
     @ResponseBody
     public BaseResponse deleteShopCar(HttpServletRequest request, @RequestParam int id, @RequestParam int sid) {
         UserInformation userInformation = (UserInformation) request.getSession().getAttribute("userInformation");

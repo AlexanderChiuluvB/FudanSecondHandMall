@@ -22,76 +22,49 @@
     <div class="cart_content">
         <table>
             <tr class="table_head">
-                <th colspan="4">商品信息</th>
+                <th colspan="2">商品信息</th>
                 <th>商品金额</th>
                 <th>商品数量</th>
-                <th>总金额</th>
+                <th>地址</th>
+                <th>联系方式</th>
                 <th>编辑</th>
+                <th>结算</th>
             </tr>
             <tr class="table_content" th:each="o:${list}">
-                <td class="input_checkbox">
-                    <input id="1" type="checkbox" checked="checked" name="checkbox" th:value="${o.sid}"/></td>
+                <!--<td class="input_checkbox">
+                    <input id="1" type="checkbox" checked="checked" name="checkbox" th:value="${o.sid}"/></td>-->
                 <td class="show_img">
-                    <img src="/img/home/feature_prodects/cont1.jpg" th:src="${o.image}" th:value="${o.sid}"
+                    <img src="/img/home/feature_products/cont1.jpg" th:src="${o.image}" th:value="${o.sid}"
                          th:title="${o.name}"/></td>
-                <td class="title" colspan="2"><span th:text="${o.name}">这是一个商品</span></td>
+                <td class="title"><span th:text="${o.name}">这是一个商品</span></td>
                 <td class="cost">￥<span th:text="${o.price}">20.00</span>元</td>
                 <td class="count"><span class="minus">-</span><span class="number" th:text="${o.quantity}">2</span><span class="add">+</span>
                 </td>
-                <td class="per_sum">￥<span th:with="sum=${o.price}*${o.quantity}" th:text="${sum}">40.00</span>元</td>
+                <td><input type="text" name="address" value="请留下地址" /></td>
+                <td><input type="text" name="contact_info" value="请留下联系方式" /></td>
+                <!--<td class="per_sum">￥<span th:with="sum=${o.price}*${o.quantity}" th:text="${sum}">40.00</span>元</td>-->
                 <td class="delete_img"><img src="/img/delete_icon.jpg" th:value="${o.id}" class="deleteGoodsCar"/></td>
+                <td colspan="3" class="pay_button_div">
+                    <button class="pay_button">结算</button>
+                </td>
             </tr>
-            <!--<tr class="table_content">-->
-            <!--<td class="input_checkbox"><input id="2" type="checkbox" checked="checked" name="checkbox"/></td>-->
-            <!--<td class="show_img">-->
-            <!--<img src="/img/home/feature_prodects/cont1.jpg"/></td>-->
-            <!--<td class="title" colspan="2"><span>这是一个商品</span></td>-->
-            <!--<td class="cost">￥<span class="single_cost">20.00</span>元</td>-->
-            <!--<td class="count"><span class="minus">-</span><span class="number">2</span>-->
-            <!--<span class="add">+</span></td>-->
-            <!--<td class="per_sum">￥<span class="one_sum_cost">40.00</span>元</td>-->
-            <!--<td class="delete_img"><img src="/img/delete_icon.jpg"/></td>-->
-            <!--</tr>-->
-            <!--<tr class="table_content">-->
-            <!--<td class="input_checkbox"><input id="3" type="checkbox" checked="checked" name="checkbox"/></td>-->
-            <!--<td class="show_img">-->
-            <!--<img src="/img/home/feature_prodects/cont1.jpg"/></td>-->
-            <!--<td class="title" colspan="2"><span>这是一个商品</span></td>-->
-            <!--<td class="cost">￥<span>20.00</span>元</td>-->
-            <!--<td class="count"><span class="minus">-</span><span class="number">2</span><span class="add">+</span></td>-->
-            <!--<td class="per_sum">￥<span>40.00</span>元</td>-->
-            <!--<td class="delete_img"><img src="/img/delete_icon.jpg"/></td>-->
-            <!--</tr>-->
-            <!--<tr class="table_content">-->
-            <!--<td class="input_checkbox"><input id="4" type="checkbox" checked="checked" name="checkbox"/></td>-->
-            <!--<td class="show_img">-->
-            <!--<img src="/img/home/feature_prodects/cont1.jpg"/></td>-->
-            <!--<td class="title" colspan="2"><span>这是一个商品</span></td>-->
-            <!--<td class="cost">￥<span>20.00</span>元</td>-->
-            <!--<td class="count"><span class="minus">-</span><span class="number">2</span><span class="add">+</span></td>-->
-            <!--<td class="per_sum">￥<span>40.00</span>元</td>-->
-            <!--<td class="delete_img"><img src="/img/delete_icon.jpg"/></td>-->
-            <!--</tr>-->
-            <tr class="end_pay">
+            <!--<tr class="end_pay">
                 <td class="is_all"><input id="all" type="checkbox" checked="checked"/>全选</td>
                 <td class="space" colspan="3"></td>
                 <td colspan="2" class="all_sum">总价：￥<span>500.00</span>元</td>
-                <td colspan="3" class="pay_button_div">
-                    <button class="pay_button" onclick="Pay()">结算</button>
-                </td>
-            </tr>
+            </tr>-->
         </table>
     </div>
     <footer>
         <p>Fudan Exchange<a href="/"></a></p>
     </footer>
 </div>
-<script language="javascript">
+<!--<script language="javascript">
     function Pay()
     {
         alert("结算成功");
     }
-</script>
+</script>-->
 
 </body>
 </html>

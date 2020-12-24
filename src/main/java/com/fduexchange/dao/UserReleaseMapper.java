@@ -24,4 +24,7 @@ public interface UserReleaseMapper {
 
     @Select("select * from UserRelease where uid=#{uid} and display=1 order by id desc limit 12")
     List<UserRelease> selectUserProductByUid(int uid);
+
+    //@Select("select uid from UserRelease where gid=#{sid}")
+    int selectSellerIdByGoodsId(int sid);
 }

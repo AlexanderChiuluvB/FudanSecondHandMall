@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fduexchange.dao.OrderTableMapper" >
+  <resultMap id="BaseResultMap" type="com.fduexchange.pojo.OrderTable" >
+    <id column="order_id" property="order_id" jdbcType="INTEGER" />
+    <result column="modified" property="modified" jdbcType="TIMESTAMP" />
+    <result column="seller_id" property="seller_id" jdbcType="INTEGER" />
+    <result column="purchaser_id" property="purchaser_id" jdbcType="INTEGER" />
+    <result column="sales_id" property="sales_id" jdbcType="INTEGER" />
+    <result column="sales_name" property="sales_name" jdbcType="VARCHAR" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="purchaser_name" property="purchaser_name" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="contact_info" property="contact_info" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="table">
+    OrderTable
+  </sql>
+
+  <sql id="all" >
+       order_id, modified, seller_id, purchaser_id, sales_id, sales_name, quantity,
+       price, purchaser_name, address, contact_info, state
+  </sql>
+
+  <insert id="insert" parameterType="com.fduexchange.pojo.OrderTable" >
+    insert into <include refid="table"/> (order_id, seller_id,
+    purchaser_id, sales_id, sales_name, quantity, price, purchaser_name,
+    address, contact_info, state)
+    values (#{order_id,jdbcType=INTEGER}, #{seller_id,jdbcType=INTEGER},
+    #{purcharser_id,jdbcType=INTEGER}, #{sales_id,jdbcType=INTEGER}, #{sales_name,jdbcType=VARCHAR},
+    #{quantity,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, #{purchaser_name,jdbcType=VARCHAR},
+    #{address,jdbcType=VARCHAR}, #{contact_info,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.fduexchange.pojo.OrderTable" >
+    insert into <include refid="table"/>
+     <trim prefix="(" suffix=")" suffixOverrides="," >
+       <if test="order_id != null" >
+        order_id,
+       </if>
+       <if test="seller_id != null" >
+         seller_id,
+       </if>
+       <if test="purchaser_id != null" >
+         purchaser_id,
+       </if>
+       <if test="sales_id != null" >
+         sales_id,
+       </if>
+       <if test="sales_name != null" >
+         sales_name,
+       </if>
+       <if test="quantity != null" >
+         quantity,
+       </if>
+       <if test="price != null" >
+         price,
+       </if>
+       <if test="purchaser_name != null" >
+         purchaser_name,
+       </if>
+       <if test="address != null" >
+         address,
+       </if>
+       <if test="contact_info != null" >
+         contact_info,
+       </if>
+       <if test="state != null" >
+         state,
+       </if>
+     </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="order_id != null" >
+        #{order_id,jdbcType=INTEGER},
+      </if>
+      <if test="seller_id != null" >
+        #{seller_id,jdbcType=INTEGER},
+      </if>
+      <if test="purchaser_id != null" >
+        #{purchaser_id,jdbcType=INTEGER},
+      </if>
+      <if test="sales_id != null" >
+        #{sales_id,jdbcType=INTEGER},
+      </if>
+      <if test="sales_name != null" >
+        #{sales_name,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="purchaser_name != null" >
+        #{purchaser_name,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="contact_info != null" >
+        #{contact_info,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateState" parameterType="java.lang.Integer" >
+    update
+    <include refid="table"/>
+    set state = 0
+    where order_id = #{order_id,jdbcType=INTEGER}
+  </update>
+</mapper>

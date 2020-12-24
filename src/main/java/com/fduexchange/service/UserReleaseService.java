@@ -22,4 +22,6 @@ public interface UserReleaseService {
     List<UserRelease> selectByUid(int uid, int start);
 
     List<UserRelease> selectUserProductByUid(int uid);
+
+    int selectSellerIdByGoodsId(int gid);
 }
