@@ -25,7 +25,7 @@
                 <th colspan="2">商品信息</th>
                 <th>商品金额</th>
                 <th>商品数量</th>
-                <!--<th>总金额</th>-->
+
                 <th>地址</th>
                 <th>联系方式</th>
                 <th>编辑</th>
@@ -41,8 +41,9 @@
                 <td class="cost">￥<span th:text="${o.price}">20.00</span>元</td>
                 <td class="count"><span class="minus">-</span><span class="number" th:text="${o.quantity}">2</span><span class="add">+</span>
                 </td>
-                <td><input type="text" name="address" value="最好填下地址吧" /></td>
-                <td><input type="text" name="contact_info" value="还要留下联系方式" /></td>
+                <td><input type="text" name="address" value="请留下地址" /></td>
+                <td><input type="text" name="contact_info" value="请留下联系方式" /></td>
+
                 <!--<td class="per_sum">￥<span th:with="sum=${o.price}*${o.quantity}" th:text="${sum}">40.00</span>元</td>-->
                 <td class="delete_img"><img src="/img/delete_icon.jpg" th:value="${o.id}" class="deleteGoodsCar"/></td>
                 <td colspan="3" class="pay_button_div">

@@ -73,7 +73,7 @@ $(function () {
     }
 
     $('.deleteGoodsCar').click(function () {
-        var r = confirm('确定删除？？？？');
+        var r = confirm('确定删除吗？');
         if (r == true) {
             var id = $(this).attr('value');
             var sid = $(this).parent().siblings(".show_img").children().attr("value");
@@ -100,13 +100,6 @@ $(function () {
         }
     })
     $('.pay_button').click(function () {
-//        @RequestParam double price,
-//        @RequestParam String address,
-//        @RequestParam String contactInfo,
-//        @RequestParam String name,
-//        @RequestParam int salesId,
-//        @RequestParam int shoppingCarId,
-//        @RequestParam int quantity
         var r = confirm('确定结算该商品吗？');
         if (r == true) {
             var name = $(this).closest("tr").find("td:eq(1)").text();
@@ -115,7 +108,6 @@ $(function () {
             var salesId = $(this).parent().siblings(".show_img").children().attr("value");
             var address = $(this).closest("tr").find("td:eq(4)").find("input:eq(0)").val();
             var contactInfo = $(this).closest("tr").find("td:eq(5)").find("input:eq(0)").val();
-            //alert(name+" "+price+" "+quantity+" "+salesId+"    "+address+"   "+contactInfo);
             $.ajax({
                 url:'insert_order.do',
                 dataType:'JSON',
@@ -135,32 +127,19 @@ $(function () {
                     }
                 }
             })
-            /* $.ajax({
+            $.ajax({
                 url:'deleteGoodsCar.do',
                 dataType:'JSON',
                 type:'post',
-                data:{id:id,sid:salesId},
-                success:function (data) {
-                    var result = data.result;
-                    if (result==2){
-                        alert('您还没有登录，请先登录');
-                    }  else if (result==1) {
-                        alert("删除成功");
-                        window.location.href='shopping_cart.do?result=删除成功';
-                    } else if (result==0){
-                        alert('删除失败，请检测网络');
-                    } else {
-                        alert('删除失败，请检测网络');
-                    }
-                }
-            }) */
+                data:{id:id,sid:sid},
+
         }
     })
     $('.confirm_goods_button').click(function () {
         var r = confirm('确认收货？');
         if (r === true) {
             var id = $(this).attr('value');
-            //alert(name+" "+price+" "+quantity+" "+salesId);
+
             $.ajax({
                 url:'modify_order.do',
                 dataType:'JSON',

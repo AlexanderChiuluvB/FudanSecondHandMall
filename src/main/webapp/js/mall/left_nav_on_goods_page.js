@@ -59,7 +59,7 @@ $(function () {
                             $all_product.append("<div class='product_content_div'>" +
                                 "<figure class='detail_product'>" +
                                 "<input type='hidden' value= ''/>" +
-                                "<img src='' title='暂时没有该分类的商品' />" +
+                                "<img src='' title='分类商品暂无' />" +
                                 "<span class='detail_product_name'></span><br/>" +
                                 "<span class='detail_product_cost'></span><br/>" +
                                 "<span class='detail_buy product_1'>加入购物车</span>" +
